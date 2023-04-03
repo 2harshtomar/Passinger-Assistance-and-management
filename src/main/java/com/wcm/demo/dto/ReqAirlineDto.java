@@ -1,35 +1,27 @@
-package com.wcm.demo.model;
+package com.wcm.demo.dto;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import org.springframework.stereotype.Component;
 
-@Entity
-public class Airline {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+import com.wcm.demo.model.Staff;
+import com.wcm.demo.model.Wheel_Chair;
+
+@Component
+public class ReqAirlineDto {
+	
 	private Long id;
 	private String AirlineCode;
 	private String opType;
 	private Long fleet;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "airline_id", referencedColumnName = "id")
+	private String username;
+	private String password;
 	private List<Staff> staff;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "airline_id", referencedColumnName = "id")
 	private List<Wheel_Chair> wheel_chair;
-
-	@OneToOne
-	private User user;
+	
+	public ReqAirlineDto() {
+		
+	}
 
 	public Long getId() {
 		return id;
@@ -63,13 +55,22 @@ public class Airline {
 		this.fleet = fleet;
 	}
 
-	public User getUser() {
-		return user;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsername(String username) {
+		this.username = username;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public List<Staff> getStaff() {
 		return staff;
 	}

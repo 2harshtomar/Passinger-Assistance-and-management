@@ -1,23 +1,14 @@
-package com.wcm.demo.model;
+package com.wcm.demo.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import org.springframework.stereotype.Component;
 
-@Entity
-public class Staff {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+@Component
+public class ResStaffDto {
 	private Long id;
 	private String name;
 	private String staffCode;
 	private String status;
-	
-	@OneToOne
-	private User user;
-	
+	private String username;
 	public Long getId() {
 		return id;
 	}
@@ -42,11 +33,12 @@ public class Staff {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public User getUser() {
-		return user;
+	public String getUsername() {
+		return username;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsername(String username) {
+		this.username = username;
 	}
+	
 	
 }

@@ -22,6 +22,7 @@ public class Flight_details {
 	private String airCraftName;
 	private String status;
 	private String source;
+	private String terminalNo;
 	private String destination;
 	
 	
@@ -90,6 +91,12 @@ public class Flight_details {
 	}
 	public void setDestination(String destination) {
 		this.destination = destination;
+	}
+	public String getTerminalNo() {
+		return terminalNo;
+	}
+	public void setTerminalNo(String terminalNo) {
+		this.terminalNo = terminalNo;
 	}
 	
 			
