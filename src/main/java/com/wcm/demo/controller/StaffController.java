@@ -5,10 +5,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wcm.demo.dto.ReqStaffDto;
@@ -20,7 +22,7 @@ import com.wcm.demo.repository.StaffRepository;
 import com.wcm.demo.repository.UserRepository;
 
 @RestController
-//@RequestMapping("/api/staff")
+@RequestMapping("/api/staff")
 public class StaffController {
 	@Autowired
 	private StaffRepository staffRepo;
@@ -34,13 +36,17 @@ public class StaffController {
 	@Autowired
 	private ResStaffDto resStaffDto;
 	
-	@PostMapping("/api/staff/add")
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@PostMapping("/add")
 	public ResponseEntity<Object> addStaff(@RequestBody ReqStaffDto reqStaffDto){
 		User user = new User();
 		user.setUsername(reqStaffDto.getUsername());
 		user.setPassword(reqStaffDto.getPassword());
 		user.setRole("STAFF");
-		// password encoder will be here
+		String encodePassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(encodePassword);
 		user = userRepository.save(user);
 		
 		Staff staff = new Staff();

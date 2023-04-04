@@ -10,6 +10,7 @@ public class ReqStaffDto {
 	private String status;
 	private String username;
 	private String password;
+	
 	public Long getId() {
 		return id;
 	}

@@ -1,23 +1,17 @@
 package com.wcm.demo.dto;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
-
-import com.wcm.demo.model.Staff;
-import com.wcm.demo.model.Wheel_Chair;
 
 @Component
 public class ReqAirlineDto {
 	
 	private Long id;
+	private String name;
 	private String AirlineCode;
 	private String opType;
 	private Long fleet;
 	private String username;
 	private String password;
-	private List<Staff> staff;
-	private List<Wheel_Chair> wheel_chair;
 	
 	public ReqAirlineDto() {
 		
@@ -29,6 +23,14 @@ public class ReqAirlineDto {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getAirlineCode() {
@@ -69,22 +71,6 @@ public class ReqAirlineDto {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public List<Staff> getStaff() {
-		return staff;
-	}
-
-	public void setStaff(List<Staff> staff) {
-		this.staff = staff;
-	}
-
-	public List<Wheel_Chair> getWheel_chair() {
-		return wheel_chair;
-	}
-
-	public void setWheel_chair(List<Wheel_Chair> wheel_chair) {
-		this.wheel_chair = wheel_chair;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,13 +36,17 @@ public class StationController {
 	@Autowired
 	private ResStationDto resStationDto;
 	
-	@PostMapping("add/station")
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@PostMapping("/add")
 	public ResponseEntity<Object> postStation(@RequestBody ReqStationDto stationDto){
 		User user = new User();
 		user.setUsername(stationDto.getUsername());
 		user.setPassword(stationDto.getPassword());
 		user.setRole("STATION");
-		// password encoder will be here
+		String encodePassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(encodePassword);
 		
 		user = userRepo.save(user); // saving user to attach id to it
 		// putting data into station and saving it

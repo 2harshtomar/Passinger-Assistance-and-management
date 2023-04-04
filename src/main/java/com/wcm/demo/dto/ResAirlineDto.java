@@ -11,6 +11,7 @@ import com.wcm.demo.model.Wheel_Chair;
 public class ResAirlineDto {
 	
 	private Long id;
+	private String name;
 	private String AirlineCode;
 	private String opType;
 	private Long fleet;
@@ -29,6 +30,14 @@ public class ResAirlineDto {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getAirlineCode() {

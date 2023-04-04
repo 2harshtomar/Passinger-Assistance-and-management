@@ -16,6 +16,7 @@ public class Airline {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	private String name;
 	private String AirlineCode;
 	private String opType;
 	private Long fleet;
@@ -37,6 +38,14 @@ public class Airline {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getAirlineCode() {
