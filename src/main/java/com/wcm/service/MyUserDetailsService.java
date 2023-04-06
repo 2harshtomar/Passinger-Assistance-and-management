@@ -31,4 +31,6 @@ public class MyUserDetailsService implements UserDetailsService {
 		list.add(sga);
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), list);
 	}
+	
+	
 }

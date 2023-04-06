@@ -16,7 +16,7 @@ public class Station {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String StNumber;
+	private String stNumber;
 	private String name;
 	private String location;
 	private String type;
@@ -34,10 +34,10 @@ public class Station {
 	
 	
 	public String getStNumber() {
-		return StNumber;
+		return stNumber;
 	}
 	public void setStNumber(String stNumber) {
-		this.StNumber = stNumber;
+		this.stNumber = stNumber;
 	}
 	public List<Wheel_Chair> getWheel_chair() {
 		return wheel_chair;
@@ -64,10 +64,10 @@ public class Station {
 		this.id = id;
 	}
 	public String getApNumber() {
-		return StNumber;
+		return stNumber;
 	}
 	public void setApNumber(String apNumber) {
-		StNumber = apNumber;
+		stNumber = apNumber;
 	}
 	public String getName() {
 		return name;

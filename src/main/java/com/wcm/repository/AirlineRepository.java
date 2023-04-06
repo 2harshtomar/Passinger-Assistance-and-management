@@ -8,4 +8,7 @@ import com.wcm.model.Airline;
 public interface AirlineRepository extends JpaRepository<Airline, Long> {
 	@Query("select a from Airline a where a.user.username=?1")
 	Airline findAirlineDetails(String username);
+	
+	@Query("select a.airlineCode from Airline a where a.user.username=?1")
+	String getAirlineCode(String username);
 }
