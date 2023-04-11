@@ -38,6 +38,7 @@ public class SsrService {
 		for(Staff s : list) {
 			if(s.getStatus() == StaffStatusEnum.AVAILABLE) {
 				s.setStatus(StaffStatusEnum.NOTAVIALABLE);
+				staffrepository.save(s);
 				ssr.setStaff(staff);
 				break;
 			}
