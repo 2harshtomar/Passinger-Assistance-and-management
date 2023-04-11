@@ -8,7 +8,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
 
-public class SsrResponseDto {
+public class ResSsrDto {
 	private Long id;
 	private String pname;
 	private String pcontcat;
