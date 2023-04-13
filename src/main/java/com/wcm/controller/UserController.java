@@ -52,7 +52,7 @@ public class UserController {
 	@GetMapping("/login")
 	public Object userLogin(Principal principal) {
 		String username = principal.getName();
-		User user = userRepo.getUserByusername(username);
+		User user = userRepo.findByUsername(username);
 		if(user == null) {
 			responseDto.setMessage("Invalid Credentials");
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseDto);
@@ -63,7 +63,7 @@ public class UserController {
 	@GetMapping("/get/details")
 	public Object getUserDetails(Principal principal) {
 		String username = principal.getName();
-		User user = userRepo.getUserByusername(username);
+		User user = userRepo.findByUsername(username);
 		if(user == null) {
 			responseDto.setMessage("Invalid Credentials");
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseDto);

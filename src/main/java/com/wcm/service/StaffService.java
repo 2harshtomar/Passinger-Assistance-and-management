@@ -37,7 +37,7 @@ public class StaffService {
 	public List<Staff> getStaffByCode(Principal principal){ // code passed is station code NOT STAFF CODE
 
 		String username = principal.getName();
-		User user = userRepo.getUserByusername(username);
+		User user = userRepo.findByUsername(username);
 		String code = "";
 		if(user.getRole().equalsIgnoreCase("AIRLINE")) {
 			code = airlineRepo.getAirlineCode(username);

@@ -11,4 +11,7 @@ public interface AirlineRepository extends JpaRepository<Airline, Long> {
 
 	@Query("select a.airlineCode from Airline a where a.user.username=?1")
 	String getAirlineCode(String username);
+	
+	@Query("select a from Airline a where a.user.id=?1")
+	Airline getAirlineByUserId(Long id);
 }

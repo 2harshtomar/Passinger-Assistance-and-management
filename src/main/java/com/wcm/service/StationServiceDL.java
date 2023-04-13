@@ -11,6 +11,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.wcm.model.Staff;
+import com.wcm.model.Wheel_Chair;
 import com.wcm.repository.StaffRepository;
 import com.wcm.repository.WheelChairRepository;
 import com.wcm.utility.StaffWheelChairFactory;
@@ -19,8 +21,8 @@ import com.wcm.utility.WcmSet;
 
 @Service
 public class StationServiceDL implements StaffWheelChairFactory {
-	private Queue<Object> staffQueue;
-	private Queue<Object> wheelchairQueue;
+	private Queue<Object> staffQueueDL;
+	private Queue<Object> wheelchairQueueDL;
 	private Set<Object> wheelchairSet;
 	private Set<Object> staffSet;
 	
@@ -37,12 +39,18 @@ public class StationServiceDL implements StaffWheelChairFactory {
 	@Autowired
 	private WheelChairRepository wcRepo;
 	
+	@Autowired
+	private StaffService staffService;
+	
+	@Autowired
+	private WheelChairService wheelChairService;
+	
 	@EventListener(ApplicationReadyEvent.class)
 	@Override
 	public void createQueue() {
-		this.staffQueue = wcmQueue.createQueue();
+		this.staffQueueDL = wcmQueue.createQueue();
 		this.staffSet = wcmSet.createSet();
-		this.wheelchairQueue = wcmQueue.createQueue();
+		this.wheelchairQueueDL = wcmQueue.createQueue();
 		this.wheelchairSet = wcmSet.createSet();
 	}
 	
@@ -52,16 +60,16 @@ public class StationServiceDL implements StaffWheelChairFactory {
 	@Scheduled(fixedDelay = 15000, initialDelay = 2000)
 	public void updateStaffQueue() {
 		this.staffSet = staffRepo.getStaffSet("DL", "AVAILABLE");
-		this.staffSet.removeAll(this.staffQueue);
-		this.staffQueue.addAll(this.staffSet);
+		this.staffSet.removeAll(this.staffQueueDL);
+		this.staffQueueDL.addAll(this.staffSet);
 		this.staffSet.clear();
 	}
 	
 	// get the status of the queue
 	@Override
 	public int getQueueStatus() {
-		boolean staff = !staffQueue.isEmpty();
-		boolean wc = !wheelchairQueue.isEmpty();
+		boolean staff = !staffQueueDL.isEmpty();
+		boolean wc = !wheelchairQueueDL.isEmpty();
 		if(staff && wc) { return 3;}
 		else if(staff == true && wc == false) {return 2;}
 		else if(staff == false && wc == true) {return 1;}
@@ -71,7 +79,7 @@ public class StationServiceDL implements StaffWheelChairFactory {
 	// get the first element of staff QUEUE
 	@Override
 	public Object getStaff() {
-		return this.staffQueue.remove();
+		return this.staffQueueDL.remove();
 	}
 	
 	//Wheel chair QUEUE
@@ -80,8 +88,8 @@ public class StationServiceDL implements StaffWheelChairFactory {
 	@Scheduled(fixedDelay = 15000, initialDelay = 2000)
 	public void updateWheelChairQueue() {
 		this.wheelchairSet = wcRepo.getWheelChairSet("DL",true);
-		this.wheelchairSet.removeAll(this.wheelchairQueue);
-		this.wheelchairQueue.addAll(this.wheelchairSet);
+		this.wheelchairSet.removeAll(this.wheelchairQueueDL);
+		this.wheelchairQueueDL.addAll(this.wheelchairSet);
 		this.wheelchairSet.clear();
 		System.out.println("wc_hit");
 	}
@@ -89,20 +97,20 @@ public class StationServiceDL implements StaffWheelChairFactory {
 	// get the first element of wheel chair QUEUE
 	@Override
 	public Object getWheelChair() {
-		return this.wheelchairQueue.remove();
+		return this.wheelchairQueueDL.remove();
 	}
 	
 	// display queue's
 	@Override
 	public void displayQueue() {
-		System.out.println("STAFF QUEUE DATA - "+this.staffQueue.toString());
-		System.out.println("WC QUEUE DATA - "+this.wheelchairQueue.toString());
+		System.out.println("STAFF QUEUE DATA - "+this.staffQueueDL.toString());
+		System.out.println("WC QUEUE DATA - "+this.wheelchairQueueDL.toString());
 	}
 	
 	// assigns queue and set to null;
 	@Override
 	public void DeleteQueue() {
-		this.staffQueue = null;
+		this.staffQueueDL = null;
 		this.staffSet = null;
 		this.wcmQueue = null;
 		this.wcmSet = null;
@@ -112,15 +120,26 @@ public class StationServiceDL implements StaffWheelChairFactory {
 	@Override
 	public List<Object> getStaffWheelChairBasedOnCode(int code) {
 		List<Object> wheelChairStaff = new ArrayList<>();
+		Wheel_Chair wheelChair = new Wheel_Chair();
+		Staff staff = new Staff();
 		switch (code) {
-		case 3: wheelChairStaff.add(staffQueue.remove());
-				wheelChairStaff.add(wheelchairQueue.remove());
-				break;
-		case 2: wheelChairStaff.add(staffQueue.remove());
-				break;
-		case 1: wheelChairStaff.add(wheelchairQueue.remove());
-				break;
+		case 3: staff = (Staff) staffQueueDL.remove();
+				wheelChair = (Wheel_Chair) wheelchairQueueDL.remove();
+				staffService.updateStaffStatus(staff.getId());
+				wheelChairService.UpdateStatus(wheelChair.getId());
+				wheelChairStaff.add(staff);
+				wheelChairStaff.add(wheelChair);
+				return wheelChairStaff;
+		case 2: staff = (Staff) staffQueueDL.remove();
+				staffService.updateStaffStatus(staff.getId());
+				wheelChairStaff.add(staffQueueDL.remove());
+				return wheelChairStaff;
+		case 1: wheelChair = (Wheel_Chair) wheelchairQueueDL.remove();
+				wheelChairService.UpdateStatus(wheelChair.getId());
+				wheelChairStaff.add(wheelchairQueueDL.remove());
+				return wheelChairStaff;
 	}
 		return wheelChairStaff;
-	}
+	
+}
 }

@@ -21,6 +21,7 @@ import com.wcm.repository.WheelChairRepository;
 import com.wcm.service.AirlineService;
 import com.wcm.service.SationServiceMAA;
 import com.wcm.service.StaffService;
+import com.wcm.service.StationRouterService;
 import com.wcm.service.StationServiceDL;
 import com.wcm.service.WheelChairService;
 
@@ -51,6 +52,9 @@ public class DemoController {
 	
 	@Autowired
 	private WheelChairRepository wcrepo;
+	
+	@Autowired
+	private StationRouterService stationRouterService;
 
 	@Autowired
 	private ApplicationShutDownManager shutDownManager;
@@ -104,10 +108,15 @@ public class DemoController {
 		airlineService.displayQueue();
 
 	}
-	@GetMapping("/create/special/service")
-	public void create() {
+	@GetMapping("/get/{id}")
+	public String getCode(@PathVariable("id") Long id) {
 //		StationSpecialService stationSpecialService = new StationSpecialService("MAA");
+		return stationRouterService.getEntity(id);
 	
+	}
+	@GetMapping("/get/pair/{code}")
+	public List<Object> getPair(@PathVariable("code") String code){
+		return airlineService.RequestStation(code);
 	}
 	@GetMapping("/shutdown")
 	public void shutDown() {

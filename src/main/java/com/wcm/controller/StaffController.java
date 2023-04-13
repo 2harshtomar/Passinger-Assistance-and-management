@@ -20,6 +20,7 @@ import com.wcm.model.Staff;
 import com.wcm.model.User;
 import com.wcm.repository.StaffRepository;
 import com.wcm.repository.UserRepository;
+import com.wcm.service.StationRouterService;
 
 @RestController
 @RequestMapping("/api/staff")
@@ -35,12 +36,15 @@ public class StaffController {
 
 	@Autowired
 	private ResStaffDto resStaffDto;
+	
+	@Autowired
+	private StationRouterService srs;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@PostMapping("/add")
-	public ResponseEntity<Object> addStaff(@RequestBody ReqStaffDto reqStaffDto){
+	@PostMapping("/add/{userId}")
+	public ResponseEntity<Object> addStaff(@PathVariable("userId") Long id,@RequestBody ReqStaffDto reqStaffDto){
 		User user = new User();
 		user.setUsername(reqStaffDto.getUsername());
 		user.setPassword(reqStaffDto.getPassword());
@@ -48,11 +52,11 @@ public class StaffController {
 		String encodePassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodePassword);
 		user = userRepository.save(user);
-
+		
 		Staff staff = new Staff();
 		staff.setName(reqStaffDto.getName());
-		staff.setStaffCode(reqStaffDto.getStaffCode());
-		staff.setStatus(reqStaffDto.getStatus());
+		staff.setStaffCode(srs.getEntity(id));
+		staff.setStatus("AVAILABLE");
 		staff.setUser(user);
 
 		staffRepo.save(staff);
