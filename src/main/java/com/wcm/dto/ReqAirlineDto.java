@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ReqAirlineDto {
-	
+
 	private Long id;
 	private String name;
 	private String airlineCode;
@@ -12,9 +12,9 @@ public class ReqAirlineDto {
 	private Long fleet;
 	private String username;
 	private String password;
-	
+
 	public ReqAirlineDto() {
-		
+
 	}
 
 	public Long getId() {
@@ -24,7 +24,7 @@ public class ReqAirlineDto {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}

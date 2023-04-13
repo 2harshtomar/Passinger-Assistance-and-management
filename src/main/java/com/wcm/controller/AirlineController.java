@@ -24,25 +24,25 @@ import com.wcm.repository.UserRepository;
 @RestController
 @RequestMapping("/api/airline")
 public class AirlineController {
-	
+
 	@Autowired
 	private AirlineRepository airlineRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private ResponseDto responseDto;
-	
+
 	@Autowired
 	private ResAirlineDto resAirlineDto;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@PostMapping("/add")
 	public ResponseEntity<Object> addAirline(@RequestBody ReqAirlineDto reqAirlineDto) {
-		
+
 		User user = new User();
 		user.setUsername(reqAirlineDto.getUsername());
 		user.setPassword(reqAirlineDto.getPassword());
@@ -50,22 +50,22 @@ public class AirlineController {
 		String encodePassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodePassword);
 		user = userRepository.save(user);
-		
+
 		Airline airline = new Airline();
 		airline.setName(reqAirlineDto.getName());
 		airline.setAirlineCode(reqAirlineDto.getAirlineCode());
 		airline.setOpType(reqAirlineDto.getOpType());
 		airline.setFleet(reqAirlineDto.getFleet());
 		airline.setUser(user);
-		
+
 		airlineRepository.save(airline);
 		responseDto.setMessage("Airline registered successfully");
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
-	
+
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Object> getAirlineById(@PathVariable("id") Long id) {
-		
+
 		Optional<Airline> optional = airlineRepository.findById(id);
 		if(optional.isEmpty()) {
 			responseDto.setMessage("Invalid Airline ID");
@@ -81,7 +81,7 @@ public class AirlineController {
 		resAirlineDto.setUsername(airline.getUser().getUsername());
 		resAirlineDto.setStaff(airline.getStaff());
 		resAirlineDto.setWheel_chair(airline.getWheel_chair());
-		
+
 		return ResponseEntity.status(HttpStatus.OK).body(resAirlineDto);
 	}
 }

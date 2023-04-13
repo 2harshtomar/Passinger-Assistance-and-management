@@ -2,6 +2,8 @@ package com.wcm.model;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
+@Component
 @Entity
 public class Station {
 	@Id
@@ -20,19 +23,26 @@ public class Station {
 	private String name;
 	private String location;
 	private String type;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "station_id", referencedColumnName = "id")
 	private List<Wheel_Chair> wheel_chair;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "station_id", referencedColumnName = "id")
 	private List<Staff> staff;
-	
+
 	@OneToOne
 	private User user;
+
+	public Station() {
+		super();
+	}
 	
-	
+	public Station(String stNumber) {
+		super();
+		this.stNumber = stNumber;
+	}
 	public String getStNumber() {
 		return stNumber;
 	}
@@ -87,6 +97,6 @@ public class Station {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
+
+
 }

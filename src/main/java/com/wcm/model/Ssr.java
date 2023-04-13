@@ -16,16 +16,16 @@ public class Ssr {
 	private LocalDateTime openDateTime;
 	private LocalDateTime closeDateTime;
 	private String status;
-	
+
 	@OneToOne
 	private PassengerDetails pssengerDetails;
-	
+
 	@OneToOne
 	private Staff staff;
-	
+
 	@OneToOne
 	private Wheel_Chair wheelChair;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -68,6 +68,6 @@ public class Ssr {
 	public void setWheelChair(Wheel_Chair wheelChair) {
 		this.wheelChair = wheelChair;
 	}
-	
-	
+
+
 }

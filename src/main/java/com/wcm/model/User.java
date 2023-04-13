@@ -16,7 +16,7 @@ import jakarta.persistence.Id;
 @Entity
 public class User implements UserDetails {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -25,9 +25,9 @@ public class User implements UserDetails {
 	private String username;
 	private String password;
 	private String role;
-	
-	
-	
+
+
+
 	public User(Long id, String username, String password, String role) {
 		super();
 		this.id = id;
@@ -35,8 +35,8 @@ public class User implements UserDetails {
 		this.password = password;
 		this.role = role;
 	}
-	
-	
+
+
 	public User() {
 		super();
 	}
@@ -48,12 +48,14 @@ public class User implements UserDetails {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	@Override
 	public String getUsername() {
 		return username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -94,5 +96,5 @@ public class User implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
+
 }

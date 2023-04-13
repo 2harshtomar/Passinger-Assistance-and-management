@@ -2,6 +2,7 @@ package com.wcm.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,34 +17,46 @@ import com.wcm.ApplicationShutDownManager;
 import com.wcm.dto.ResponseDto;
 import com.wcm.exception.ResourseNotFoundException;
 import com.wcm.model.Staff;
-import com.wcm.service.SationService;
+import com.wcm.repository.WheelChairRepository;
+import com.wcm.service.AirlineService;
+import com.wcm.service.SationServiceMAA;
 import com.wcm.service.StaffService;
+import com.wcm.service.StationServiceDL;
 import com.wcm.service.WheelChairService;
 
 @RestController
 @RequestMapping("/api/demo")
 public class DemoController {
-	
+
 //	@Autowired
 //	private WheelChairRepository wcRepo;
-	
+
 	@Autowired
 	private WheelChairService wcService;
-	
+
 	@Autowired
 	private ResponseDto responseDto;
-	
+
 	@Autowired
 	private StaffService staffService;
 	
 	@Autowired
-	private SationService stationService;
+	private AirlineService airlineService;
+
+	@Autowired
+	private SationServiceMAA stationServiceMaa;
 	
 	@Autowired
+	private StationServiceDL stationServiceDL;
+	
+	@Autowired
+	private WheelChairRepository wcrepo;
+
+	@Autowired
 	private ApplicationShutDownManager shutDownManager;
-	
-	
-	@PutMapping("/update/status/{id}")
+
+	// changing the status of wheel chair
+	@PutMapping("/update/wc/status/{id}")
 	public ResponseEntity<Object> UpdateStatus(@PathVariable("id") Long id){
 		try {
 			wcService.UpdateStatus(id);
@@ -55,18 +68,52 @@ public class DemoController {
 		}
 		return null;
 	}
+	
+	// changing the status of staff
+	@PutMapping("/update/staff/status/{id}")
+	public ResponseEntity<Object> updateStaffStatus(@PathVariable("id") Long id){
+		return staffService.updateStaffStatus(id);
+	}
+	
 	@GetMapping("/get/staff/based/on/code")
 	public List<Staff> getStaffBasedOnCode(Principal principal){
 		return staffService.getStaffByCode(principal);
 	}
+	@GetMapping("/get/wheel/chair")
+	public Set<Object> getWC(){
+		return wcrepo.getWheelChairSet("MAA", true);
+	}
+	
 	@GetMapping("/invoke")
 	public void demo() {
-		stationService.addElement();
-		stationService.displayQueue();
+//		stationService.addElement();
+//		stationService.updateStaffQueue();
+//		Set<Integer> set1 = new HashSet<>();
+//		Set<Integer> set2 = new HashSet<>();
+//		set1.add(1);
+//		set1.add(2);
+////		set1.add(3);
+//		set2.add(1);
+//		set2.add(2);
+//		System.out.println(set1);
+//		System.out.println(set2);
+//		set1.removeAll(set2);
+//		System.out.println(set1);
+		stationServiceMaa.displayQueue();
+		stationServiceDL.displayQueue();
+		airlineService.displayQueue();
+
+	}
+	@GetMapping("/create/special/service")
+	public void create() {
+//		StationSpecialService stationSpecialService = new StationSpecialService("MAA");
+	
 	}
 	@GetMapping("/shutdown")
 	public void shutDown() {
-		stationService.DeleteQueue();
+		stationServiceMaa.DeleteQueue();
+		stationServiceDL.DeleteQueue();
+		airlineService.DeleteQueue();
 		shutDownManager.initiateShutdown(0);
 		System.out.println("Terminated");
 	}

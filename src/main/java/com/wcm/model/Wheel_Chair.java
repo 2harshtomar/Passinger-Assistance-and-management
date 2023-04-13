@@ -31,6 +31,25 @@ public class Wheel_Chair {
 		this.wcStatus = wcStatus;
 	}
 	
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return id.intValue();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		
+		Wheel_Chair wheelChair = (Wheel_Chair) obj;
+		return id == wheelChair.id;
+	}
+	@Override
+	public String toString() {
+		return "Wheel_Chair [id=" + id + ", wcCode=" + wcCode + ", wcStatus=" + wcStatus + "]";
+	}
 	
 	
+
 }

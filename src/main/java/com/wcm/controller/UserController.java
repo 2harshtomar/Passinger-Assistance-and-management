@@ -27,28 +27,28 @@ import com.wcm.repository.UserRepository;
 public class UserController {
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Autowired
 	private ResponseDto responseDto;
-	
+
 	@Autowired
 	private StaffRepository staffRepo;
-	
+
 	@Autowired
 	private StationRepository stationRepo;
-	
+
 	@Autowired
 	private AirlineRepository airlineRepo;
-	
+
 	@Autowired
 	private ResStaffDto staffDto;
-	
+
 	@Autowired
 	private ResStationDto stationDto;
-	
+
 	@Autowired
 	private ResAirlineDto airlineDto;
-	
+
 	@GetMapping("/login")
 	public Object userLogin(Principal principal) {
 		String username = principal.getName();
@@ -58,7 +58,7 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseDto);
  		}
 		user.setPassword("Hidden");
-		return user;	
+		return user;
 	}
 	@GetMapping("/get/details")
 	public Object getUserDetails(Principal principal) {
@@ -74,20 +74,20 @@ public class UserController {
 			staffDto.setStaffCode(staff.getStaffCode());
 			staffDto.setStatus(staff.getStatus());
 			staffDto.setUsername(staff.getUser().getUsername());
-			
+
 			return staffDto;
 		}
-		
+
 		if(user.getRole().equalsIgnoreCase("STATION")) {
 			Station station = stationRepo.findStationDetails(username);
 			stationDto.setName(station.getName());
 			stationDto.setLocation(station.getLocation());
 			stationDto.setStNumber(station.getStNumber());
 			stationDto.setUsername(station.getUser().getUsername());
-			
+
 			return stationDto;
 		}
-		
+
 		if(user.getRole().equalsIgnoreCase("AIRLINE")) {
 			Airline airline = airlineRepo.findAirlineDetails(username);
 			airlineDto.setName(airline.getName());

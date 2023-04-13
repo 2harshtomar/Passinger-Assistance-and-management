@@ -9,7 +9,7 @@ import com.wcm.model.Wheel_Chair;
 
 @Component
 public class ResAirlineDto {
-	
+
 	private Long id;
 	private String name;
 	private String AirlineCode;
@@ -19,9 +19,9 @@ public class ResAirlineDto {
 	private String username;
 	private List<Staff> staff;
 	private List<Wheel_Chair> wheel_chair;
-	
+
 	public ResAirlineDto() {
-		
+
 	}
 
 	public Long getId() {
@@ -31,7 +31,7 @@ public class ResAirlineDto {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}

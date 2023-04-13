@@ -26,19 +26,19 @@ import com.wcm.repository.UserRepository;
 public class StaffController {
 	@Autowired
 	private StaffRepository staffRepo;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private ResponseDto responseDto;
-	
+
 	@Autowired
 	private ResStaffDto resStaffDto;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@PostMapping("/add")
 	public ResponseEntity<Object> addStaff(@RequestBody ReqStaffDto reqStaffDto){
 		User user = new User();
@@ -48,13 +48,13 @@ public class StaffController {
 		String encodePassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodePassword);
 		user = userRepository.save(user);
-		
+
 		Staff staff = new Staff();
 		staff.setName(reqStaffDto.getName());
 		staff.setStaffCode(reqStaffDto.getStaffCode());
 		staff.setStatus(reqStaffDto.getStatus());
 		staff.setUser(user);
-		
+
 		staffRepo.save(staff);
 		responseDto.setMessage("Staff registered successfully");
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
@@ -66,13 +66,13 @@ public class StaffController {
 			responseDto.setMessage("Invalid Staff ID");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
 		}
-		
+
 		Staff staff = optional.get();
 		resStaffDto.setName(staff.getName());
 		resStaffDto.setStaffCode(staff.getStaffCode());
 		resStaffDto.setStatus(staff.getStatus());
 		resStaffDto.setUsername(staff.getUser().getUsername());
-		
+
 		return ResponseEntity.status(HttpStatus.OK).body(resStaffDto);
 	}
 }

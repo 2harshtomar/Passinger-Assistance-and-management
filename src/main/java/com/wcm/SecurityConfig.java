@@ -18,7 +18,7 @@ import com.wcm.service.MyUserDetailsService;
 public class SecurityConfig {
 	@Autowired
 	private MyUserDetailsService myUserDetailsService;
-	
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		http.authorizeHttpRequests((authorise) -> {
@@ -28,25 +28,25 @@ public class SecurityConfig {
 				 .permitAll()
 				 .and()
 				 .csrf().disable();
-				
+
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
-			
+
 		})
 		.httpBasic(Customizer.withDefaults());
-		
+
 		http.authenticationProvider(getDBAuth());
 		return http.build();
-		
+
 	}
-	
+
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public DaoAuthenticationProvider getDBAuth() {
 		DaoAuthenticationProvider dao = new DaoAuthenticationProvider();

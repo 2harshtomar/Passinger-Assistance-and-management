@@ -13,10 +13,10 @@ public class PassengerDetails {
 	private Long id;
 	private String name;
 	private String contact;
-	
+
 	@ManyToOne
 	private Flight_details flightDetails;
-	
+
 	public Flight_details getFlightDetails() {
 		return flightDetails;
 	}
@@ -41,6 +41,6 @@ public class PassengerDetails {
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
-	
-	
+
+
 }

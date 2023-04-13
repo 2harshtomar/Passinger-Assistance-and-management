@@ -18,11 +18,12 @@ import com.wcm.utility.WcmQueue;
 import com.wcm.utility.WcmSet;
 
 @Service
-public class AirlineService {
+public class StationServiceDL implements StaffWheelChairFactory {
 	private Queue<Object> staffQueue;
 	private Queue<Object> wheelchairQueue;
 	private Set<Object> wheelchairSet;
 	private Set<Object> staffSet;
+	
 
 	@Autowired
 	private WcmQueue wcmQueue;
@@ -36,18 +37,13 @@ public class AirlineService {
 	@Autowired
 	private WheelChairRepository wcRepo;
 	
-	@Autowired
-	private StationRouterService stationRouterService;
-	
 	@EventListener(ApplicationReadyEvent.class)
+	@Override
 	public void createQueue() {
 		this.staffQueue = wcmQueue.createQueue();
 		this.staffSet = wcmSet.createSet();
 		this.wheelchairQueue = wcmQueue.createQueue();
 		this.wheelchairSet = wcmSet.createSet();
-		// status message
-		System.out.println("AI Queue created");
-		System.out.println("AI Set created");
 	}
 	
 	//Staff QUEUE
@@ -55,19 +51,25 @@ public class AirlineService {
 	// method will get Available staff from db and puth them into queue
 	@Scheduled(fixedDelay = 15000, initialDelay = 2000)
 	public void updateStaffQueue() {
-		this.staffSet = staffRepo.getStaffSet("AI", "AVAILABLE");
+		this.staffSet = staffRepo.getStaffSet("DL", "AVAILABLE");
 		this.staffSet.removeAll(this.staffQueue);
 		this.staffQueue.addAll(this.staffSet);
 		this.staffSet.clear();
-		System.out.println("AI_staff_hit");
 	}
 	
 	// get the status of the queue
-	public boolean getQueueStatus() {
-		return this.staffQueue.isEmpty();
+	@Override
+	public int getQueueStatus() {
+		boolean staff = !staffQueue.isEmpty();
+		boolean wc = !wheelchairQueue.isEmpty();
+		if(staff && wc) { return 3;}
+		else if(staff == true && wc == false) {return 2;}
+		else if(staff == false && wc == true) {return 1;}
+		else {return 0;}
 	}
 	
 	// get the first element of staff QUEUE
+	@Override
 	public Object getStaff() {
 		return this.staffQueue.remove();
 	}
@@ -77,25 +79,28 @@ public class AirlineService {
 	// method will get Available staff from db and puth them into queue
 	@Scheduled(fixedDelay = 15000, initialDelay = 2000)
 	public void updateWheelChairQueue() {
-		this.wheelchairSet = wcRepo.getWheelChairSet("AI",true);
+		this.wheelchairSet = wcRepo.getWheelChairSet("DL",true);
 		this.wheelchairSet.removeAll(this.wheelchairQueue);
 		this.wheelchairQueue.addAll(this.wheelchairSet);
 		this.wheelchairSet.clear();
-		System.out.println("AI_wc_hit");
+		System.out.println("wc_hit");
 	}
 	
 	// get the first element of wheel chair QUEUE
+	@Override
 	public Object getWheelChair() {
 		return this.wheelchairQueue.remove();
 	}
 	
 	// display queue's
+	@Override
 	public void displayQueue() {
-		System.out.println("AI_STAFF QUEUE DATA - "+this.staffQueue.toString());
-		System.out.println("AI_WC QUEUE DATA - "+this.wheelchairQueue.toString());
+		System.out.println("STAFF QUEUE DATA - "+this.staffQueue.toString());
+		System.out.println("WC QUEUE DATA - "+this.wheelchairQueue.toString());
 	}
 	
 	// assigns queue and set to null;
+	@Override
 	public void DeleteQueue() {
 		this.staffQueue = null;
 		this.staffSet = null;
@@ -104,25 +109,18 @@ public class AirlineService {
 		System.out.println("Queue nullified");
 	}
 	
-	// Station and Airline 
-	public List<Object> RequestStation(String stCode) {
-		StaffWheelChairFactory staffWheelChairFactory = stationRouterService.ForwardRequest(stCode);
-		int statusCode = staffWheelChairFactory.getQueueStatus();
-		List<Object> pair = new ArrayList<>();
-		switch (statusCode) {
-		case 3:
-			pair = staffWheelChairFactory.getStaffWheelChairBasedOnCode(statusCode);
-			break;
-		case 2: pair = staffWheelChairFactory.getStaffWheelChairBasedOnCode(statusCode);
-				pair.add(wheelchairQueue.remove());
+	@Override
+	public List<Object> getStaffWheelChairBasedOnCode(int code) {
+		List<Object> wheelChairStaff = new ArrayList<>();
+		switch (code) {
+		case 3: wheelChairStaff.add(staffQueue.remove());
+				wheelChairStaff.add(wheelchairQueue.remove());
 				break;
-		case 1: pair = staffWheelChairFactory.getStaffWheelChairBasedOnCode(statusCode);
-				pair.add(staffQueue.remove());
+		case 2: wheelChairStaff.add(staffQueue.remove());
 				break;
-		case 0: pair.add(staffQueue.remove());
-				pair.add(wheelchairQueue.remove());
+		case 1: wheelChairStaff.add(wheelchairQueue.remove());
 				break;
-		}
-		return pair;
+	}
+		return wheelChairStaff;
 	}
 }

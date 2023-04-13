@@ -24,14 +24,14 @@ public class Flight_details {
 	private String source;
 	private String terminalNo;
 	private String destination;
-	
-	
+
+
 	@OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "passenger_id", referencedColumnName = "id")
 	private List<PassengerDetails> passenger;
-	
-	
-	
+
+
+
 	public Long getId() {
 		return id;
 	}
@@ -98,6 +98,6 @@ public class Flight_details {
 	public void setTerminalNo(String terminalNo) {
 		this.terminalNo = terminalNo;
 	}
-	
-			
+
+
 }

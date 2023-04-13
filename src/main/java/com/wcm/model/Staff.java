@@ -15,9 +15,19 @@ public class Staff {
 	private String staffCode;
 	private String status;
 	
+	
+
+	public Staff() {
+		
+	}
+	
+	public Staff(String staffCode) {
+		this.staffCode = staffCode;
+	}
+	
 	@OneToOne
 	private User user;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -49,4 +59,26 @@ public class Staff {
 		this.user = user;
 	}
 	
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return id.intValue();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		
+		Staff staff = (Staff) obj;
+		return id == staff.id;
+	}
+	@Override
+	public String toString() {
+		return "Staff [id=" + id + ", name=" + name + ", staffCode=" + staffCode + ", status=" + status + ", user="
+				+ user + "]";
+	}
+	
+	
+
 }

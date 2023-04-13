@@ -11,11 +11,11 @@ import com.wcm.repository.WheelChairRepository;
 public class WheelChairService {
 	@Autowired
 	private WheelChairRepository wheelChairRepo;
-	
+
 	public void UpdateStatus(Long id) {
 		Wheel_Chair wc = wheelChairRepo.findById(id)
 				.orElseThrow(()-> new ResourseNotFoundException("Invalid Wheel Chair ID"));
-		
+
 		wc.setWcStatus(!wc.getWcStatus());
 		wheelChairRepo.save(wc);
 	}

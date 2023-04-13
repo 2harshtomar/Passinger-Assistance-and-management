@@ -20,11 +20,11 @@ public class Airline {
 	private String airlineCode;
 	private String opType;
 	private Long fleet;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "airline_id", referencedColumnName = "id")
 	private List<Staff> staff;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "airline_id", referencedColumnName = "id")
 	private List<Wheel_Chair> wheel_chair;
@@ -39,7 +39,7 @@ public class Airline {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -47,7 +47,7 @@ public class Airline {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getAirlineCode() {
 		return airlineCode;
 	}

@@ -15,7 +15,7 @@ import com.wcm.repository.UserRepository;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
-	
+
 	@Autowired
 	private UserRepository userRepo;
 
@@ -31,6 +31,6 @@ public class MyUserDetailsService implements UserDetailsService {
 		list.add(sga);
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), list);
 	}
-	
-	
+
+
 }
