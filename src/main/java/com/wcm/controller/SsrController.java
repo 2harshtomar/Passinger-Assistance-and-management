@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wcm.dto.ResSsrDto;
@@ -29,7 +30,7 @@ public class SsrController {
 	
 	
 	@GetMapping("/get/ssr")
-	public List<ResSsrDto> getAllSsr(){
+	public ResponseEntity<Object> getAllSsr(@RequestBody Ssr ssr){
 		List<Ssr> list = ssrrepository.findAll();
 		List<ResSsrDto> listDto = new ArrayList<>();
 		for(Ssr s : list) {
@@ -47,11 +48,11 @@ public class SsrController {
 			
 			listDto.add(dto);
 		}
-		return listDto;
+		return ResponseEntity.status(HttpStatus.OK).body(listDto);
 	}
 	
 	@PostMapping("/add/ssr")
-	public ResponseEntity<Object> addSsr(Ssr ssr){
+	public ResponseEntity<Object> addSsr(@RequestBody Ssr ssr){
 		PassengerDetails pssengerDetails = ssr.getPssengerDetails();
 		
 		Staff staff = ssr.getStaff();
