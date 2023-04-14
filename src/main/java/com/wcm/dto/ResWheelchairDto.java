@@ -25,6 +25,11 @@ public class ResWheelchairDto {
 	public void setWcStatus(boolean wcStatus) {
 		this.wcStatus = wcStatus;
 	}
+	@Override
+	public String toString() {
+		return "ResWheelchairDto [id=" + id + ", wcCode=" + wcCode + ", wcStatus=" + wcStatus + "]";
+	}
+	
 	
 	
 }
