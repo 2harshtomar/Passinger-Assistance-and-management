@@ -12,6 +12,8 @@ public class Staff {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
+	private String contact;
+	private String email;
 	private String staffCode;
 	private String status;
 	
@@ -73,12 +75,28 @@ public class Staff {
 		Staff staff = (Staff) obj;
 		return id == staff.id;
 	}
+	
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
-		return "Staff [id=" + id + ", name=" + name + ", staffCode=" + staffCode + ", status=" + status + ", user="
-				+ user + "]";
+		return "Staff [id=" + id + ", name=" + name + ", contact=" + contact + ", email=" + email + ", staffCode="
+				+ staffCode + ", status=" + status + ", user=" + user + "]";
 	}
 	
 	
-
 }

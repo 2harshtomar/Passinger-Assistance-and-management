@@ -21,10 +21,16 @@ public class Ssr {
 	private PassengerDetails pssengerDetails;
 
 	@OneToOne
-	private Staff staff;
+	private Staff sStaff;
+	
+	@OneToOne
+	private Staff dStaff;
 
 	@OneToOne
-	private Wheel_Chair wheelChair;
+	private Wheel_Chair sWheelChair;
+	
+	@OneToOne
+	private Wheel_Chair dWheelChair;
 
 	public Long getId() {
 		return id;
@@ -56,18 +62,29 @@ public class Ssr {
 	public void setPssengerDetails(PassengerDetails pssengerDetails) {
 		this.pssengerDetails = pssengerDetails;
 	}
-	public Staff getStaff() {
-		return staff;
+	public Staff getsStaff() {
+		return sStaff;
 	}
-	public void setStaff(Staff staff) {
-		this.staff = staff;
+	public void setsStaff(Staff sStaff) {
+		this.sStaff = sStaff;
 	}
-	public Wheel_Chair getWheelChair() {
-		return wheelChair;
+	public Staff getdStaff() {
+		return dStaff;
 	}
-	public void setWheelChair(Wheel_Chair wheelChair) {
-		this.wheelChair = wheelChair;
+	public void setdStaff(Staff dStaff) {
+		this.dStaff = dStaff;
 	}
-
+	public Wheel_Chair getsWheelChair() {
+		return sWheelChair;
+	}
+	public void setsWheelChair(Wheel_Chair sWheelChair) {
+		this.sWheelChair = sWheelChair;
+	}
+	public Wheel_Chair getdWheelChair() {
+		return dWheelChair;
+	}
+	public void setdWheelChair(Wheel_Chair dWheelChair) {
+		this.dWheelChair = dWheelChair;
+	}
 
 }

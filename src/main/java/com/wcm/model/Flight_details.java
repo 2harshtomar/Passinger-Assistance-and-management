@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Flight_details {
@@ -20,15 +21,23 @@ public class Flight_details {
 	private LocalDateTime fromDateTime;
 	private LocalDateTime toDateTime;
 	private String airCraftName;
-	private String status;
-	private String source;
-	private String terminalNo;
-	private String destination;
+	private String status; // boarding NA, boarding , departed, arrived 
+	private String sourseTerminalNo;
+	private String destinationTerminalNo;
 
 
 	@OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "passenger_id", referencedColumnName = "id")
 	private List<PassengerDetails> passenger;
+	
+	@OneToOne
+	private Station sourceStation;
+	
+	@OneToOne
+	private Station destinationStation;
+	
+	@OneToOne
+	private Airline airline;
 
 
 
@@ -80,24 +89,36 @@ public class Flight_details {
 	public void setPassenger(List<PassengerDetails> passenger) {
 		this.passenger = passenger;
 	}
-	public String getSource() {
-		return source;
+	public String getSourseTerminalNo() {
+		return sourseTerminalNo;
 	}
-	public void setSource(String source) {
-		this.source = source;
+	public void setSourseTerminalNo(String sourseTerminalNo) {
+		this.sourseTerminalNo = sourseTerminalNo;
 	}
-	public String getDestination() {
-		return destination;
+	public String getDestinationTerminalNo() {
+		return destinationTerminalNo;
 	}
-	public void setDestination(String destination) {
-		this.destination = destination;
+	public void setDestinationTerminalNo(String destinationTerminalNo) {
+		this.destinationTerminalNo = destinationTerminalNo;
 	}
-	public String getTerminalNo() {
-		return terminalNo;
+	public Station getSourceStation() {
+		return sourceStation;
 	}
-	public void setTerminalNo(String terminalNo) {
-		this.terminalNo = terminalNo;
+	public void setSourceStation(Station sourceStation) {
+		this.sourceStation = sourceStation;
 	}
-
+	public Station getDestinationStation() {
+		return destinationStation;
+	}
+	public void setDestinationStation(Station destinationStation) {
+		this.destinationStation = destinationStation;
+	}
+	public Airline getAirline() {
+		return airline;
+	}
+	public void setAirline(Airline airline) {
+		this.airline = airline;
+	}
+	
 
 }
