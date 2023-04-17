@@ -27,7 +27,6 @@ public class Flight_details {
 
 
 	@OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "passenger_id", referencedColumnName = "id")
 	private List<PassengerDetails> passenger;
 	
 	@OneToOne

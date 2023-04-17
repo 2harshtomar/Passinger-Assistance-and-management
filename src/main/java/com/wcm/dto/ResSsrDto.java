@@ -2,7 +2,9 @@ package com.wcm.dto;
 
 import java.time.LocalDateTime;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class ResSsrDto {
 	private String pname;
 	private String pcontact;
