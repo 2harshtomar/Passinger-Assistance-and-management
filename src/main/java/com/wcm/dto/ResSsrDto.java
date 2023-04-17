@@ -2,6 +2,7 @@ package com.wcm.dto;
 
 import java.time.LocalDateTime;
 
+
 public class ResSsrDto {
 	private String pname;
 	private String pcontact;
@@ -81,7 +82,5 @@ public class ResSsrDto {
 	public void setDestTerminalNo(String destTerminalNo) {
 		this.destTerminalNo = destTerminalNo;
 	}
-	
-	
 	
 }

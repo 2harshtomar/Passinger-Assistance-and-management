@@ -120,5 +120,5 @@ public class SsrController {
 		passengerResSsrDto.setTerminalNo(ssr.getPssengerDetails().getFlightDetails().getSourseTerminalNo());
 		return ResponseEntity.status(HttpStatus.OK).body(passengerResSsrDto);
 	}
-	
 }
+	
