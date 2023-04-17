@@ -73,12 +73,6 @@ public class Station {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getApNumber() {
-		return stNumber;
-	}
-	public void setApNumber(String apNumber) {
-		stNumber = apNumber;
-	}
 	public String getName() {
 		return name;
 	}

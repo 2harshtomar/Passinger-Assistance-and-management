@@ -2,54 +2,43 @@ package com.wcm.dto;
 
 import java.time.LocalDateTime;
 
-import org.springframework.stereotype.Component;
-@Component
+
 public class ResSsrDto {
-	private Long id;
 	private String pname;
-	private String pcontcat;
-	private LocalDateTime openDateTime;
-	private String status;
-	
+	private String pcontact;
+	private String sStNumber;
+	private String dStNumber;
 	private String flightNo;
 	private LocalDateTime fromDateTime;
 	private LocalDateTime toDateTime;
-	private String airCraftName;
-	private String source;
-	private String destination;
+	private String flStatus;
+	private String ssrStatus;
+	private String sourseTerminalNo;
+	private String destTerminalNo;
 	
-
-	//Getter and Setter
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getPname() {
 		return pname;
 	}
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
-	public String getPcontcat() {
-		return pcontcat;
+	public String getPcontact() {
+		return pcontact;
 	}
-	public void setPcontcat(String pcontcat) {
-		this.pcontcat = pcontcat;
+	public void setPcontact(String pcontact) {
+		this.pcontact = pcontact;
 	}
-	public LocalDateTime getOpenDateTime() {
-		return openDateTime;
+	public String getsStNumber() {
+		return sStNumber;
 	}
-	public void setOpenDateTime(LocalDateTime openDateTime) {
-		this.openDateTime = openDateTime;
+	public void setsStNumber(String sStNumber) {
+		this.sStNumber = sStNumber;
 	}
-	public String getStatus() {
-		return status;
+	public String getdStNumber() {
+		return dStNumber;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setdStNumber(String dStNumber) {
+		this.dStNumber = dStNumber;
 	}
 	public String getFlightNo() {
 		return flightNo;
@@ -69,27 +58,29 @@ public class ResSsrDto {
 	public void setToDateTime(LocalDateTime toDateTime) {
 		this.toDateTime = toDateTime;
 	}
-	public String getAirCraftName() {
-		return airCraftName;
+	public String getFlStatus() {
+		return flStatus;
 	}
-	public void setAirCraftName(String airCraftName) {
-		this.airCraftName = airCraftName;
+	public void setFlStatus(String flStatus) {
+		this.flStatus = flStatus;
 	}
-	public String getSource() {
-		return source;
+	public String getSsrStatus() {
+		return ssrStatus;
 	}
-	public void setSource(String source) {
-		this.source = source;
+	public void setSsrStatus(String ssrStatus) {
+		this.ssrStatus = ssrStatus;
 	}
-	public String getDestination() {
-		return destination;
+	public String getSourseTerminalNo() {
+		return sourseTerminalNo;
 	}
-	public void setDestination(String destination) {
-		this.destination = destination;
+	public void setSourseTerminalNo(String sourseTerminalNo) {
+		this.sourseTerminalNo = sourseTerminalNo;
 	}
-	
-	
-	
-	
+	public String getDestTerminalNo() {
+		return destTerminalNo;
+	}
+	public void setDestTerminalNo(String destTerminalNo) {
+		this.destTerminalNo = destTerminalNo;
+	}
 	
 }
