@@ -117,12 +117,20 @@ public class SsrController {
 			responseDto.setMessage("Invalid Ssr ID");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
 		}
-	
 		Ssr ssr = optional.get();
-		passengerResSsrDto.setAirlineName(ssr.getPssengerDetails().getFlightDetails().getAirline().getName());
-		passengerResSsrDto.setStaffContact(null);
-		passengerResSsrDto.setStaffName(ssr.getsStaff().getName());
-		passengerResSsrDto.setTerminalNo(ssr.getPssengerDetails().getFlightDetails().getSourseTerminalNo());
+		String status = ssr.getPssengerDetails().getFlightDetails().getStatus();
+		if(status == "BOARDING" || status == "BOARDED-NA") {
+			passengerResSsrDto.setAirlineName(ssr.getPssengerDetails().getFlightDetails().getAirline().getName());
+			passengerResSsrDto.setStaffContact(ssr.getsStaff().getContact());
+			passengerResSsrDto.setStaffName(ssr.getsStaff().getName());
+			passengerResSsrDto.setTerminalNo(ssr.getPssengerDetails().getFlightDetails().getSourseTerminalNo());
+		}
+		else {
+			passengerResSsrDto.setAirlineName(ssr.getPssengerDetails().getFlightDetails().getAirline().getName());
+			passengerResSsrDto.setStaffContact(ssr.getdStaff().getContact());
+			passengerResSsrDto.setStaffName(ssr.getdStaff().getName());
+			passengerResSsrDto.setTerminalNo(ssr.getPssengerDetails().getFlightDetails().getDestinationTerminalNo());
+		}
 		return ResponseEntity.status(HttpStatus.OK).body(passengerResSsrDto);
 	}
 }

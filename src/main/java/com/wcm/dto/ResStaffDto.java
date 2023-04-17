@@ -8,6 +8,8 @@ public class ResStaffDto {
 	private String name;
 	private String staffCode;
 	private String status;
+	private String contact;
+	private String email;
 	private String username;
 	public Long getId() {
 		return id;
@@ -39,6 +41,18 @@ public class ResStaffDto {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
+	public String getContact() {
+		return contact;
+	}
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 
 }
