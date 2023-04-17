@@ -1,6 +1,8 @@
 package com.wcm.dto;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class PassengerResSsrDto {
 	private String staffName;
 	private String staffContact;

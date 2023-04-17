@@ -112,8 +112,6 @@ public class StationServiceDL implements StaffWheelChairFactory {
 	public void DeleteQueue() {
 		this.staffQueueDL = null;
 		this.staffSet = null;
-		this.wcmQueue = null;
-		this.wcmSet = null;
 		System.out.println("Queue nullified");
 	}
 	

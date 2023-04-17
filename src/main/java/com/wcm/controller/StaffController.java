@@ -55,6 +55,8 @@ public class StaffController {
 		
 		Staff staff = new Staff();
 		staff.setName(reqStaffDto.getName());
+		staff.setContact(reqStaffDto.getContact());
+		staff.setEmail(reqStaffDto.getEmail());
 		staff.setStaffCode(srs.getEntity(id));
 		staff.setStatus("AVAILABLE");
 		staff.setUser(user);
@@ -75,6 +77,8 @@ public class StaffController {
 		resStaffDto.setName(staff.getName());
 		resStaffDto.setStaffCode(staff.getStaffCode());
 		resStaffDto.setStatus(staff.getStatus());
+		resStaffDto.setContact(staff.getContact());
+		resStaffDto.setEmail(staff.getEmail());
 		resStaffDto.setUsername(staff.getUser().getUsername());
 
 		return ResponseEntity.status(HttpStatus.OK).body(resStaffDto);

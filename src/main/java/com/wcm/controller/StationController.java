@@ -1,5 +1,6 @@
 package com.wcm.controller;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,7 @@ public class StationController {
 
 	}
 	@GetMapping("/get/{id}")
-	public ResponseEntity<Object> getStationById(@PathVariable("id") Long id) {
+	public ResponseEntity<Object> getStationById(@PathVariable("id") Long id, Principal principal) {
 
 		Optional<Station> optional = stationRepo.findById(id);
 		if(optional.isEmpty()) {
@@ -87,7 +88,7 @@ public class StationController {
 		resStationDto.setType(resStationDto.getType());
 //		resStationDto.setUserId(airline.getUser().getId());
 		resStationDto.setUsername(airline.getUser().getUsername());
-		resStationDto.setStaff(airline.getStaff());
+		resStationDto.setStaff(staffService.getStaffByCode(principal));
 		resStationDto.setStaff(resStationDto.getStaff());
 
 		return ResponseEntity.status(HttpStatus.OK).body(resStationDto);
