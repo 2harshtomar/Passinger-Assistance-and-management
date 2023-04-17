@@ -1,6 +1,7 @@
 package com.wcm.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,7 @@ public class PassengerController {
 	@Autowired
 	private ResponseDto responseDto;
 	
+	//post by id
 	@PostMapping("/add/{id}")
 	public ResponseEntity<Object> addPassenger(@RequestBody PassengerDetails passenger, @PathVariable("id") Long id) {
 		PassengerDetails passengerDB = new PassengerDetails();
@@ -62,6 +64,8 @@ public class PassengerController {
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 		
 	}
+	
+	// Get by id
 	
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Object> getPassengerById(@PathVariable("id") Long id) {
@@ -95,5 +99,40 @@ public class PassengerController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(resPassengerDetailsDto);
 	}
+	
+	//get all
+	@GetMapping("/get/all")
+	public ResponseEntity<Object> getPassenger(@RequestBody PassengerRepository passengerrepo){
+		List<PassengerDetails> list= passengerrepo.findAll();
+		List<ResPassengerDetailsDto> listDto = new ArrayList<>();
+		for(PassengerDetails p : list) {
+			ResPassengerDetailsDto dto = new ResPassengerDetailsDto();
+			dto.setAddress(p.getAddress());
+			dto.setAirCraftName(p.getFlightDetails().getAirCraftName());
+			dto.setAirlineCode(p.getFlightDetails().getAirline().getAirlineCode());
+			dto.setAirlineName(p.getFlightDetails().getAirline().getName());
+			dto.setContact(p.getContact());
+			dto.setDestinationTerminalNo(p.getFlightDetails().getDestinationTerminalNo());
+			dto.setDestStationLocation(p.getFlightDetails().getSourceStation().getLocation());
+			dto.setDestStationName(p.getFlightDetails().getDestinationStation().getName());
+			dto.setDestStationNumber(p.getFlightDetails().getDestinationStation().getStNumber());
+			dto.setFlightNo(p.getFlightDetails().getFlightNo());
+			dto.setFromDateTime(p.getFlightDetails().getFromDateTime());
+			dto.setId(p.getId());
+			dto.setName(p.getName());
+			dto.setSourceStationLocation(p.getFlightDetails().getSourceStation().getLocation());
+			dto.setSourceStationName(p.getFlightDetails().getSourceStation().getName());
+			dto.setSourceStationNumber(p.getFlightDetails().getSourceStation().getStNumber());
+			dto.setSourseTerminalNo(p.getFlightDetails().getSourseTerminalNo());
+			dto.setStatus(p.getFlightDetails().getStatus());
+			dto.setToDateTime(p.getFlightDetails().getToDateTime());
+			
+			listDto.add(dto);
+		
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(listDto);
+	}
+	
 
 }

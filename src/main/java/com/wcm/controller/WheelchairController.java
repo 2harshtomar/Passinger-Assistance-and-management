@@ -26,6 +26,9 @@ public class WheelchairController {
 	@Autowired
 	WheelChairRepository wcr;
 	
+	/* Author : Aaditya Mohan
+	 * emp id : 2000081375
+	 */
 	//get
 	
 	@GetMapping("/get/all/wheelchair")
