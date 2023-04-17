@@ -1,6 +1,7 @@
 package com.wcm.controller;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import com.wcm.dto.ResponseDto;
 import com.wcm.model.Wheel_Chair;
 import com.wcm.repository.WheelChairRepository;
 
-import jakarta.websocket.server.PathParam;
 
 public class WheelchairController {
 	
