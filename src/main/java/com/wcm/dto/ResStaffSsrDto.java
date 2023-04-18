@@ -3,22 +3,20 @@ package com.wcm.dto;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
-
 @Component
-public class ResSsrDto {
+public class ResStaffSsrDto {
 	private String pname;
 	private String pcontact;
-	private String sStNumber;
-	private String dStNumber;
+	private String StNumber;
+//	private String dStNumber;
 	private String flightNo;
 	private LocalDateTime fromDateTime;
 	private LocalDateTime toDateTime;
 	private String flStatus;
 	private String ssrStatus;
-	private String sourseTerminalNo;
-	private String destTerminalNo;
+	private String TerminalNo;
+//	private String destTerminalNo;
 	private boolean isArcived;
-	
 	public String getPname() {
 		return pname;
 	}
@@ -31,17 +29,11 @@ public class ResSsrDto {
 	public void setPcontact(String pcontact) {
 		this.pcontact = pcontact;
 	}
-	public String getsStNumber() {
-		return sStNumber;
+	public String getStNumber() {
+		return StNumber;
 	}
-	public void setsStNumber(String sStNumber) {
-		this.sStNumber = sStNumber;
-	}
-	public String getdStNumber() {
-		return dStNumber;
-	}
-	public void setdStNumber(String dStNumber) {
-		this.dStNumber = dStNumber;
+	public void setStNumber(String stNumber) {
+		StNumber = stNumber;
 	}
 	public String getFlightNo() {
 		return flightNo;
@@ -73,23 +65,18 @@ public class ResSsrDto {
 	public void setSsrStatus(String ssrStatus) {
 		this.ssrStatus = ssrStatus;
 	}
-	public String getSourseTerminalNo() {
-		return sourseTerminalNo;
+	public String getTerminalNo() {
+		return TerminalNo;
 	}
-	public void setSourseTerminalNo(String sourseTerminalNo) {
-		this.sourseTerminalNo = sourseTerminalNo;
+	public void setTerminalNo(String terminalNo) {
+		TerminalNo = terminalNo;
 	}
-	public String getDestTerminalNo() {
-		return destTerminalNo;
-	}
-	public void setDestTerminalNo(String destTerminalNo) {
-		this.destTerminalNo = destTerminalNo;
-	}
-	public boolean getIsArcived() {
+	public boolean isArcived() {
 		return isArcived;
 	}
-	public void setIsArcived(boolean b) {
-		this.isArcived = b;
+	public void setArcived(boolean isArcived) {
+		this.isArcived = isArcived;
 	}
+	
 	
 }

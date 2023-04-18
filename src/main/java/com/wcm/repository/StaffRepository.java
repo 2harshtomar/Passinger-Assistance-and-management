@@ -18,4 +18,6 @@ public interface StaffRepository extends JpaRepository<Staff, Long> {
 	// returns a set with no duplicates
 	@Query("select s from Staff s where s.staffCode=?1 AND s.status=?2")
 	Set<Object> getStaffSet(String code, String status);
+	
+	
 }
