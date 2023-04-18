@@ -4,12 +4,10 @@ import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
 
-import com.wcm.model.Station;
-
 @Component
 public class ResPassengerDetailsDto {
 	
-	private Long id;
+//	private Long id;
 	private String name;
 	private String contact;
 	private String address;
@@ -39,7 +37,7 @@ public class ResPassengerDetailsDto {
 			String sourceStationLocation, String destStationNumber, String destStationName, String destStationLocation,
 			String airlineName, String airlineCode) {
 		super();
-		this.id = id;
+//		this.id = id;
 		this.name = name;
 		this.contact = contact;
 		this.address = address;
@@ -62,13 +60,13 @@ public class ResPassengerDetailsDto {
 
 
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+//	public Long getId() {
+//		return id;
+//	}
+//
+//	public void setId(Long id) {
+//		this.id = id;
+//	}
 
 	public String getName() {
 		return name;
@@ -218,7 +216,7 @@ public class ResPassengerDetailsDto {
 
 	@Override
 	public String toString() {
-		return "ResPassengerDetailsDto [id=" + id + ", name=" + name + ", contact=" + contact + ", address=" + address
+		return "ResPassengerDetailsDto [name=" + name + ", contact=" + contact + ", address=" + address
 				+ ", flightNo=" + flightNo + ", fromDateTime=" + fromDateTime + ", toDateTime=" + toDateTime
 				+ ", airCraftName=" + airCraftName + ", status=" + status + ", sourseTerminalNo=" + sourseTerminalNo
 				+ ", destinationTerminalNo=" + destinationTerminalNo + ", sourceStationNumber=" + sourceStationNumber

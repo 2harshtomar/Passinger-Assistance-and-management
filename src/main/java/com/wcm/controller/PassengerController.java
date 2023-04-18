@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,7 +76,7 @@ public class PassengerController {
 		}
 		
 		PassengerDetails passengerDB = optional.get();
-		resPassengerDetailsDto.setId(passengerDB.getId());
+//		resPassengerDetailsDto.setId(passengerDB.getId());
 		resPassengerDetailsDto.setName(passengerDB.getName());
 		resPassengerDetailsDto.setContact(passengerDB.getContact());
 		resPassengerDetailsDto.setAddress(passengerDB.getAddress());
@@ -118,7 +117,7 @@ public class PassengerController {
 			dto.setDestStationNumber(p.getFlightDetails().getDestinationStation().getStNumber());
 			dto.setFlightNo(p.getFlightDetails().getFlightNo());
 			dto.setFromDateTime(p.getFlightDetails().getFromDateTime());
-			dto.setId(p.getId());
+//			dto.setId(p.getId());
 			dto.setName(p.getName());
 			dto.setSourceStationLocation(p.getFlightDetails().getSourceStation().getLocation());
 			dto.setSourceStationName(p.getFlightDetails().getSourceStation().getName());
