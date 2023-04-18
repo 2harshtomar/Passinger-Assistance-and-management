@@ -27,10 +27,6 @@ import com.wcm.service.AirlineService;
 @RestController
 @RequestMapping("/api/ssr")
 public class SsrController {
-//	private Long id;
-//	private LocalDateTime openDateTime;
-//	private LocalDateTime closeDateTime;
-//	private String status;
 	
 	/* Author : Aaditya Mohan
 	 * emp id : 2000081375
@@ -83,6 +79,7 @@ public class SsrController {
 				ssr.setdWheelChair((Wheel_Chair) obj);
 			}
 		}
+		ssrRepo.save(ssr);
 		responseDto.setMessage("SSR raised successfully");
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 		

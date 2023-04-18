@@ -81,7 +81,7 @@ public class DemoController {
 	
 	@GetMapping("/get/staff/based/on/code")
 	public List<Staff> getStaffBasedOnCode(Principal principal){
-		return staffService.getStaffByCode(principal);
+		return staffService.getStaff(principal);
 	}
 	@GetMapping("/get/wheel/chair")
 	public Set<Object> getWC(){

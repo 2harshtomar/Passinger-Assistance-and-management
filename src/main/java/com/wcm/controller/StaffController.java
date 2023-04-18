@@ -1,5 +1,7 @@
 package com.wcm.controller;
 
+import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import com.wcm.model.Staff;
 import com.wcm.model.User;
 import com.wcm.repository.StaffRepository;
 import com.wcm.repository.UserRepository;
+import com.wcm.service.StaffService;
 import com.wcm.service.StationRouterService;
 
 @RestController
@@ -42,6 +45,9 @@ public class StaffController {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private StaffService staffService;
 
 	@PostMapping("/add/{userId}")
 	public ResponseEntity<Object> addStaff(@PathVariable("userId") Long id,@RequestBody ReqStaffDto reqStaffDto){
@@ -82,5 +88,10 @@ public class StaffController {
 		resStaffDto.setUsername(staff.getUser().getUsername());
 
 		return ResponseEntity.status(HttpStatus.OK).body(resStaffDto);
+	}
+	@GetMapping("/get/all")
+	public List<Staff> getAllStaff(Principal principal){
+		return staffService.getStaff(principal);
+		
 	}
 }

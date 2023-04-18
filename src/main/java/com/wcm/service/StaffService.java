@@ -34,7 +34,7 @@ public class StaffService {
 	@Autowired
 	private ResponseDto responseDto;
 
-	public List<Staff> getStaffByCode(Principal principal){ // code passed is station code NOT STAFF CODE
+	public List<Staff> getStaff(Principal principal){ // code passed is station code NOT STAFF CODE
 
 		String username = principal.getName();
 		User user = userRepo.findByUsername(username);

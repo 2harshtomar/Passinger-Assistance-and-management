@@ -24,8 +24,10 @@ public class StationRouterService {
 	private AirlineRepository airlineRepo;
 	
 	public StaffWheelChairFactory ForwardRequest(String code) {
+		int sepPos = code.lastIndexOf("-");
+	    String stcode = code.substring(0,sepPos);
 		
-		switch (code) {
+		switch (stcode) {
 		case "MAA":
 				return stationServiceMAA;
 		case "DL":

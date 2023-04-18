@@ -88,7 +88,7 @@ public class StationController {
 		resStationDto.setType(resStationDto.getType());
 //		resStationDto.setUserId(airline.getUser().getId());
 		resStationDto.setUsername(airline.getUser().getUsername());
-		resStationDto.setStaff(staffService.getStaffByCode(principal));
+		resStationDto.setStaff(staffService.getStaff(principal));
 		resStationDto.setStaff(resStationDto.getStaff());
 
 		return ResponseEntity.status(HttpStatus.OK).body(resStationDto);
