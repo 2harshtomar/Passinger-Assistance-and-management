@@ -16,6 +16,7 @@ public class Ssr {
 	private LocalDateTime openDateTime;
 	private LocalDateTime closeDateTime;
 	private String status;
+	private boolean isArcived;
 
 	@OneToOne
 	private PassengerDetails pssengerDetails;
@@ -86,5 +87,12 @@ public class Ssr {
 	public void setdWheelChair(Wheel_Chair dWheelChair) {
 		this.dWheelChair = dWheelChair;
 	}
+	public boolean isArcived() {
+		return isArcived;
+	}
+	public void setArcived(boolean isArcived) {
+		this.isArcived = isArcived;
+	}
+	
 
 }

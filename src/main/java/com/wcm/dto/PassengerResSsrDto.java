@@ -8,6 +8,7 @@ public class PassengerResSsrDto {
 	private String staffContact;
 	private String terminalNo;
 	private String airlineName;
+	private boolean isArcived;
 	
 	public String getStaffName() {
 		return staffName;
@@ -32,6 +33,12 @@ public class PassengerResSsrDto {
 	}
 	public void setAirlineName(String airlineName) {
 		this.airlineName = airlineName;
+	}
+	public boolean isArcived() {
+		return isArcived;
+	}
+	public void setArcived(boolean isArcived) {
+		this.isArcived = isArcived;
 	}
 	
 	
