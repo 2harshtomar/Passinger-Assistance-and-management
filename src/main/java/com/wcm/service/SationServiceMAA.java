@@ -81,7 +81,7 @@ public class SationServiceMAA implements StaffWheelChairFactory {
 		this.wheelchairSet.removeAll(this.wheelchairQueueMAA);
 		this.wheelchairQueueMAA.addAll(this.wheelchairSet);
 		this.wheelchairSet.clear();
-		System.out.println("wc_hit");
+//		System.out.println("wc_hit");
 	}
 	
 	// display queue's

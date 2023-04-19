@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import com.wcm.dto.ResponseDto;
 import com.wcm.model.Staff;
 import com.wcm.model.User;
@@ -33,6 +37,13 @@ public class StaffService {
 	
 	@Autowired
 	private ResponseDto responseDto;
+	
+	private final static String ACCOUNT_SID = "AC414fae3bea4bf8aad1545c1265e2523d";
+	private final static String AUTH_ID = "acab93af96dc2bf6c85b6464fa6fdd95";
+
+	static {
+	   Twilio.init(ACCOUNT_SID, AUTH_ID);
+	}
 
 	public List<Staff> getStaff(Principal principal){ // code passed is station code NOT STAFF CODE
 
@@ -75,6 +86,12 @@ public class StaffService {
 		responseDto.setMessage("Status Updated");
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
-	
+	public ResponseEntity<Object> sendSMS(String msg) {
+	      Message.creator(new PhoneNumber("+916397382080"), new PhoneNumber("+15074456938"),
+	    	         msg).create();
+	      responseDto.setMessage("Message sent");
+		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+	      
+	}
 	}
 

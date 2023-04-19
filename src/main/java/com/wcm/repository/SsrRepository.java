@@ -7,6 +7,6 @@ import com.wcm.model.Ssr;
 
 
 public interface SsrRepository extends JpaRepository<Ssr, Long> {
-	@Query("select s from Ssr s where (s.status = 'ACTIVE') and s.sStaff.id = ?1 or s.dStaff.id = ?1")
+	@Query("select s from Ssr s where s.status = 'ACTIVE' or s.status = 'ACTIVE-PASSENGER DEPARTED' and s.sStaff.id = ?1 or s.dStaff.id = ?1")
 	Ssr getSsrOnStaff(Long id);
 }

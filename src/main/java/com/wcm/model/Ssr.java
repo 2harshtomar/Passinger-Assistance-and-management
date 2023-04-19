@@ -15,7 +15,7 @@ public class Ssr {
 	private Long id;
 	private LocalDateTime openDateTime;
 	private LocalDateTime closeDateTime;
-	private String status;
+	private String status;// ACTIVE-PASENGER DEPARTED
 	private boolean isArcived;
 
 	@OneToOne

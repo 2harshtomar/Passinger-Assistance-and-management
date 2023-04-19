@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import com.wcm.model.Station;
 import com.wcm.repository.AirlineRepository;
 import com.wcm.repository.FlightDetailsRepository;
 import com.wcm.repository.StationRepository;
+import com.wcm.service.FlightDetailsService;
 
 @RestController
 @RequestMapping("/api/flight/details")
@@ -39,6 +41,9 @@ public class FlightDetialsController {
 		
 		@Autowired
 		private AirlineRepository airlineRepository;
+		
+		@Autowired
+		private FlightDetailsService flightService;
 		
 		@PostMapping("/add/{sid}/{did}/{aid}")
 		public ResponseEntity<Object> addFlight(@PathVariable("sid") Long sid, @PathVariable("did") Long did, @PathVariable("aid") Long aid, @RequestBody ReqFlightDetailsDto flightDto){
@@ -99,5 +104,10 @@ public class FlightDetialsController {
 			resFlightDto.setStatus(flight.getStatus());
 			
 			return ResponseEntity.status(HttpStatus.OK).body(resFlightDto);
+		}
+		@PutMapping("/update/flight/{fid}")
+		public ResponseEntity<Object> updateFlightDetails(@PathVariable("fid") Long fid){
+			return flightService.updateFlightStatus(fid);
+			
 		}
 }

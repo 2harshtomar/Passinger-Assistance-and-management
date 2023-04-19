@@ -67,7 +67,7 @@ public class AirlineService {
 		this.staffSet.removeAll(this.staffQueueAL);
 		this.staffQueueAL.addAll(this.staffSet);
 		this.staffSet.clear();
-		System.out.println("AI_staff_hit");
+//		System.out.println("AI_staff_hit");
 	}
 	
 	// get the status of the queue
@@ -89,7 +89,7 @@ public class AirlineService {
 		this.wheelchairSet.removeAll(this.wheelchairQueueAL);
 		this.wheelchairQueueAL.addAll(this.wheelchairSet);
 		this.wheelchairSet.clear();
-		System.out.println("AI_wc_hit");
+//		System.out.println("AI_wc_hit");
 	}
 	
 	// get the first element of wheel chair QUEUE

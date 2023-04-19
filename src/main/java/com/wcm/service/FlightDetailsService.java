@@ -7,11 +7,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import com.wcm.dto.ResponseDto;
 import com.wcm.model.Flight_details;
 import com.wcm.repository.FlightDetailsRepository;
-
+@Service
 public class FlightDetailsService {
 	@Autowired
 	private FlightDetailsRepository flightRepo;

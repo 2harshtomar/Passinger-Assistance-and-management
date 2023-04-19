@@ -118,6 +118,11 @@ public class DemoController {
 	public List<Object> getPair(@PathVariable("code") String code){
 		return airlineService.RequestStation(code);
 	}
+	@GetMapping("/send")
+	public ResponseEntity<Object> sendSMS() {
+		String msg = "Task assigned";
+		return staffService.sendSMS(msg);
+	}
 	
 	@GetMapping("/shutdown")
 	public void shutDown() {

@@ -75,7 +75,7 @@ public class SsrController {
 		ssr.setOpenDateTime(LocalDateTime.now());
 		ssr.setStatus("ACTIVE");
 		ssr.setArcived(false);
-;		//getting wheel chair & staff from source station
+		//getting wheel chair & staff from source station
 		List<Object> sourceStaffWcPair = airlineService.RequestStation(passenger.getFlightDetails().getSourceStation().getStNumber());
 		//getting wheel chair & staff from destination station
 		List<Object> DestinationStaffWcPair = airlineService.RequestStation(passenger.getFlightDetails().getDestinationStation().getStNumber());
@@ -154,8 +154,8 @@ public class SsrController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(passengerResSsrDto);
 	}
-	@PutMapping("/staff/updateArciveStatus/{ssid}/{staffId}/{wcId}")
-	public ResponseEntity<Object> updateArchiveStatus(@PathVariable("ssid") Long ssid, @PathVariable("staffId") Long sid, @PathVariable("wcId") Long wcid){
+	@PutMapping("/staff/updateArciveStatus/{ssid}")
+	public ResponseEntity<Object> updateArchiveStatus(@PathVariable("ssid") Long ssid){
 		Optional<Ssr> soptional = ssrRepo.findById(ssid);
 		if(soptional.isEmpty()) {
 			responseDto.setMessage("Invalid Ssr ID");
@@ -163,12 +163,37 @@ public class SsrController {
 		}
 		Ssr ssr = soptional.get();
 		ssr.setArcived(true);
+		ssr.setStatus("ARCHIVED");
 		ssr.setCloseDateTime(LocalDateTime.now());
-		staffService.updateStaffStatus(sid);
-		wheelChairService.UpdateStatus(wcid);
+		staffService.updateStaffStatus(ssr.getdStaff().getId());
+		wheelChairService.UpdateStatus(ssr.getdWheelChair().getId());
 		ssrRepo.save(ssr);
 		responseDto.setMessage("SSR Arcived");
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+	}
+	@PutMapping("/update/source/staff/{ssid}")
+	public ResponseEntity<Object> updateSourceStaff(@PathVariable("ssid") Long ssid){
+		Optional<Ssr> soptional = ssrRepo.findById(ssid);
+		if(soptional.isEmpty()) {
+			responseDto.setMessage("Invalid Ssr ID");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
+		}
+		Ssr ssr = soptional.get();
+		staffService.updateStaffStatus(ssr.getsStaff().getId());
+		wheelChairService.UpdateStatus(ssr.getsWheelChair().getId());
+		ssr.setStatus("ACTIVE-PASSENGER DEPARTED");
+		ssrRepo.save(ssr);
+		responseDto.setMessage("Source staff and wheel chair status updated");
+		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+	}
+	@PutMapping("/staff/updateArciveStatus/principal")
+	public ResponseEntity<Object> updateArchiveStatusPrincipal(Principal principal){
+		return ssrService.updateArchiveStatus(principal);
+	}
+	
+	@PutMapping("/update/source/staff/principal")
+	public ResponseEntity<Object> updateSourceStaffPrincipal(Principal principal){
+		return ssrService.updateSourceStaff(principal);
 	}
 }
 	

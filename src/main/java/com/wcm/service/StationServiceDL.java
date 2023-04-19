@@ -91,7 +91,7 @@ public class StationServiceDL implements StaffWheelChairFactory {
 		this.wheelchairSet.removeAll(this.wheelchairQueueDL);
 		this.wheelchairQueueDL.addAll(this.wheelchairSet);
 		this.wheelchairSet.clear();
-		System.out.println("wc_hit");
+//		System.out.println("wc_hit");
 	}
 	
 	// get the first element of wheel chair QUEUE
@@ -121,9 +121,10 @@ public class StationServiceDL implements StaffWheelChairFactory {
 		Wheel_Chair wheelChair = new Wheel_Chair();
 		Staff staff = new Staff();
 		switch (code) {
-		case 3: staff = (Staff) staffQueueDL.remove();
-				wheelChair = (Wheel_Chair) wheelchairQueueDL.remove();
+		case 3: 
+				staff = (Staff) staffQueueDL.remove();
 				staffService.updateStaffStatus(staff.getId());
+				wheelChair = (Wheel_Chair) wheelchairQueueDL.remove();
 				wheelChairService.UpdateStatus(wheelChair.getId());
 				wheelChairStaff.add(staff);
 				wheelChairStaff.add(wheelChair);

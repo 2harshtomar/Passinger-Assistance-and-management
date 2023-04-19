@@ -1,11 +1,13 @@
 package com.wcm.service;
 
 import java.security.Principal;
-
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import com.wcm.dto.ResStaffSsrDto;
+import com.wcm.dto.ResponseDto;
 import com.wcm.model.Ssr;
 import com.wcm.model.Staff;
 import com.wcm.repository.SsrRepository;
@@ -21,6 +23,15 @@ public class SsrService {
 	
 	@Autowired
 	private ResStaffSsrDto resStaffSsrDto;
+	
+	@Autowired 
+	private ResponseDto responseDto;
+	
+	@Autowired
+	private StaffService staffService;
+	
+	@Autowired
+	private WheelChairService wheelChairService;
 	
 	public ResStaffSsrDto isSource(Principal principal) {
 		Staff staff = staffRepo.findStaffDetails(principal.getName());
@@ -42,5 +53,35 @@ public class SsrService {
 		return resStaffSsrDto;
 	}
 	
+	public ResponseEntity<Object> updateArchiveStatus(Principal principal){
+		System.out.println(principal.getName());
+		Staff staff = staffRepo.findStaffDetails(principal.getName());
+		System.out.println(staff.getId());
+		Ssr ssr = ssrRepo.getSsrOnStaff(staff.getId());
+		if(ssr.getdStaff().getId() == staff.getId()) {
+			ssr.setArcived(true);
+			ssr.setStatus("ARCHIVED");
+			ssr.setCloseDateTime(LocalDateTime.now());
+			staffService.updateStaffStatus(ssr.getdStaff().getId());
+			wheelChairService.UpdateStatus(ssr.getdWheelChair().getId());
+		}
+		ssrRepo.save(ssr);
+		responseDto.setMessage("SSR Arcived");
+		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+	}
 	
+	public ResponseEntity<Object> updateSourceStaff(Principal principal){
+		Staff staff = staffRepo.findStaffDetails(principal.getName());
+		System.out.println(staff.getId());
+		Ssr ssr = ssrRepo.getSsrOnStaff(staff.getId());
+		System.out.println(ssr.getId());
+		if(ssr.getsStaff().getId() == staff.getId()) {
+			staffService.updateStaffStatus(ssr.getsStaff().getId());
+			wheelChairService.UpdateStatus(ssr.getsWheelChair().getId());
+			ssr.setStatus("ACTIVE-PASSENGER DEPARTED");
+		}
+		ssrRepo.save(ssr);
+		responseDto.setMessage("Source staff and wheel chair status updated");
+		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+	}
 }
