@@ -24,6 +24,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests((authorise) -> {
 			try {
 				authorise.requestMatchers("/api/user/login").permitAll()
+						 .requestMatchers("/api/user/get/details").permitAll()
 				.anyRequest()
 				 .permitAll()
 				 .and()

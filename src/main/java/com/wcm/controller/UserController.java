@@ -76,6 +76,8 @@ public class UserController {
 			staffDto.setStaffCode(staff.getStaffCode());
 			staffDto.setStatus(staff.getStatus());
 			staffDto.setUsername(staff.getUser().getUsername());
+			staffDto.setContact(staff.getContact());
+			staffDto.setEmail(staff.getEmail());
 
 			return staffDto;
 		}
