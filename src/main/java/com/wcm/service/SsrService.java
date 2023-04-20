@@ -36,7 +36,8 @@ public class SsrService {
 	public ResStaffSsrDto isSource(Principal principal) {
 		Staff staff = staffRepo.findStaffDetails(principal.getName());
 		Ssr ssr = ssrRepo.getSsrOnStaff(staff.getId());
-		resStaffSsrDto.setId(staff.getId());
+		resStaffSsrDto.setSid(ssr.getsStaff().getId());
+		resStaffSsrDto.setDid(ssr.getdStaff().getId());
 		resStaffSsrDto.setPname(ssr.getPssengerDetails().getName());
 		resStaffSsrDto.setPcontact(ssr.getPssengerDetails().getContact());
 		resStaffSsrDto.setFlightNo(ssr.getPssengerDetails().getFlightDetails().getFlightNo());
@@ -48,7 +49,6 @@ public class SsrService {
 		resStaffSsrDto.setSsrStatus(ssr.getStatus());
 		resStaffSsrDto.setArcived(ssr.isArcived());
 		if(ssr.getsStaff().getId() == staff.getId()) {
-			resStaffSsrDto.setId(staff.getId());
 			resStaffSsrDto.setTerminalNo(ssr.getPssengerDetails().getFlightDetails().getSourseTerminalNo());
 			resStaffSsrDto.setStNumber(ssr.getPssengerDetails().getFlightDetails().getSourceStation().getStNumber());
 		}

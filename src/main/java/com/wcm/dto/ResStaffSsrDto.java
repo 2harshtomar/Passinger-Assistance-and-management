@@ -8,7 +8,8 @@ public class ResStaffSsrDto {
 	private String pname;
 	private String pcontact;
 	private String StNumber;
-	private Long id;
+	private Long sid;
+	private Long did;
 //	private String dStNumber;
 	private String flightNo;
 	private LocalDateTime fromDateTime;
@@ -78,11 +79,17 @@ public class ResStaffSsrDto {
 	public void setArcived(boolean isArcived) {
 		this.isArcived = isArcived;
 	}
-	public Long getId() {
-		return id;
+	public Long getSid() {
+		return sid;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setSid(Long sid) {
+		this.sid = sid;
+	}
+	public Long getDid() {
+		return did;
+	}
+	public void setDid(Long did) {
+		this.did = did;
 	}
 	
 	
