@@ -105,7 +105,7 @@ public class SsrController {
 	}
 	// connect this to staff dashboard assign tasks
 	@GetMapping("/staff/get/ssrInfo")
-	public ResStaffSsrDto getSsrDetailsForSatff(Principal principal) {
+	public ResponseEntity<Object> getSsrDetailsForSatff(Principal principal) {
 		return ssrService.isSource(principal);
 	}
 	

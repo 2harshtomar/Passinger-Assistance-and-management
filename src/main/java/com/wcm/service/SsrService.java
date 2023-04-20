@@ -2,6 +2,8 @@ package com.wcm.service;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,56 +35,72 @@ public class SsrService {
 	@Autowired
 	private WheelChairService wheelChairService;
 	
-	public ResStaffSsrDto isSource(Principal principal) {
+	public ResponseEntity<Object> isSource(Principal principal) {
 		Staff staff = staffRepo.findStaffDetails(principal.getName());
-		Ssr ssr = ssrRepo.getSsrOnStaff(staff.getId());
-		resStaffSsrDto.setSid(ssr.getsStaff().getId());
-		resStaffSsrDto.setDid(ssr.getdStaff().getId());
-		resStaffSsrDto.setPname(ssr.getPssengerDetails().getName());
-		resStaffSsrDto.setPcontact(ssr.getPssengerDetails().getContact());
-		resStaffSsrDto.setFlightNo(ssr.getPssengerDetails().getFlightDetails().getFlightNo());
-		resStaffSsrDto.setFlStatus(ssr.getPssengerDetails().getFlightDetails().getStatus());
-		resStaffSsrDto.setFromDateTime(ssr.getPssengerDetails().getFlightDetails().getFromDateTime());
-		resStaffSsrDto.setTerminalNo(ssr.getPssengerDetails().getFlightDetails().getDestinationTerminalNo());
-		resStaffSsrDto.setStNumber(ssr.getPssengerDetails().getFlightDetails().getDestinationStation().getStNumber());
-		resStaffSsrDto.setToDateTime(ssr.getPssengerDetails().getFlightDetails().getToDateTime());
-		resStaffSsrDto.setSsrStatus(ssr.getStatus());
-		resStaffSsrDto.setArcived(ssr.isArcived());
-		if(ssr.getsStaff().getId() == staff.getId()) {
-			resStaffSsrDto.setTerminalNo(ssr.getPssengerDetails().getFlightDetails().getSourseTerminalNo());
-			resStaffSsrDto.setStNumber(ssr.getPssengerDetails().getFlightDetails().getSourceStation().getStNumber());
+		List<Ssr> ssrs  = ssrRepo.getSsrOnStaff(staff.getId());
+		for (Ssr s: ssrs) {
+			if(staff.getId() == s.getsStaff().getId() || staff.getId() == s.getdStaff().getId()) {
+				resStaffSsrDto.setSid(s.getsStaff().getId());
+				resStaffSsrDto.setDid(s.getdStaff().getId());
+				resStaffSsrDto.setPname(s.getPssengerDetails().getName());
+				resStaffSsrDto.setPcontact(s.getPssengerDetails().getContact());
+				resStaffSsrDto.setFlightNo(s.getPssengerDetails().getFlightDetails().getFlightNo());
+				resStaffSsrDto.setFlStatus(s.getPssengerDetails().getFlightDetails().getStatus());
+				resStaffSsrDto.setFromDateTime(s.getPssengerDetails().getFlightDetails().getFromDateTime());
+				resStaffSsrDto.setTerminalNo(s.getPssengerDetails().getFlightDetails().getDestinationTerminalNo());
+				resStaffSsrDto.setStNumber(s.getPssengerDetails().getFlightDetails().getDestinationStation().getStNumber());
+				resStaffSsrDto.setToDateTime(s.getPssengerDetails().getFlightDetails().getToDateTime());
+				resStaffSsrDto.setSsrStatus(s.getStatus());
+				resStaffSsrDto.setArcived(s.isArcived());
+				if(s.getsStaff().getId() == staff.getId()) {
+					resStaffSsrDto.setTerminalNo(s.getPssengerDetails().getFlightDetails().getSourseTerminalNo());
+					resStaffSsrDto.setStNumber(s.getPssengerDetails().getFlightDetails().getSourceStation().getStNumber());
+				}
+				
+			}
+			else {
+				resStaffSsrDto = null;
+			}
+
 		}
-		return resStaffSsrDto;
+		return ResponseEntity.status(HttpStatus.OK).body(resStaffSsrDto);
 	}
 	
 	public ResponseEntity<Object> updateArchiveStatus(Principal principal){
 		System.out.println(principal.getName());
 		Staff staff = staffRepo.findStaffDetails(principal.getName());
 		System.out.println(staff.getId());
-		Ssr ssr = ssrRepo.getSsrOnStaff(staff.getId());
-		if(ssr.getdStaff().getId() == staff.getId()) {
-			ssr.setArcived(true);
-			ssr.setStatus("ARCHIVED");
-			ssr.setCloseDateTime(LocalDateTime.now());
-			staffService.updateStaffStatus(ssr.getdStaff().getId());
-			wheelChairService.UpdateStatus(ssr.getdWheelChair().getId());
+		List<Ssr> ssrs  = ssrRepo.getSsrOnStaff(staff.getId());
+		for (Ssr s: ssrs) {
+			if(staff.getId() == s.getsStaff().getId() || staff.getId() == s.getdStaff().getId()) {
+				if(s.getdStaff().getId() == staff.getId()) {
+					s.setArcived(true);
+					s.setStatus("ARCHIVED");
+					s.setCloseDateTime(LocalDateTime.now());
+					staffService.updateStaffStatus(s.getdStaff().getId());
+					wheelChairService.UpdateStatus(s.getdWheelChair().getId());
+				}
+				ssrRepo.save(s);
+			}
 		}
-		ssrRepo.save(ssr);
-		responseDto.setMessage("SSR Arcived");
+		responseDto.setMessage("SSR Archived");
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
 	
 	public ResponseEntity<Object> updateSourceStaff(Principal principal){
 		Staff staff = staffRepo.findStaffDetails(principal.getName());
-		System.out.println(staff.getId());
-		Ssr ssr = ssrRepo.getSsrOnStaff(staff.getId());
-		System.out.println(ssr.getId());
-		if(ssr.getsStaff().getId() == staff.getId()) {
-			staffService.updateStaffStatus(ssr.getsStaff().getId());
-			wheelChairService.UpdateStatus(ssr.getsWheelChair().getId());
-			ssr.setStatus("ACTIVE-PASSENGER DEPARTED");
+		List<Ssr> ssrs  = ssrRepo.getSsrOnStaff(staff.getId());
+		for (Ssr s: ssrs) {
+			if(staff.getId() == s.getsStaff().getId() || staff.getId() == s.getdStaff().getId()) {
+				if(s.getsStaff().getId() == staff.getId()) {
+					staffService.updateStaffStatus(s.getsStaff().getId());
+					wheelChairService.UpdateStatus(s.getsWheelChair().getId());
+					s.setStatus("ACTIVE-PASSENGER DEPARTED");
+				}
+				ssrRepo.save(s);
+			}
 		}
-		ssrRepo.save(ssr);
+
 		responseDto.setMessage("Source staff and wheel chair status updated");
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}

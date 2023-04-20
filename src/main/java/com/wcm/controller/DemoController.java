@@ -17,6 +17,8 @@ import com.wcm.ApplicationShutDownManager;
 import com.wcm.dto.ResStaffDto;
 import com.wcm.dto.ResponseDto;
 import com.wcm.exception.ResourseNotFoundException;
+import com.wcm.model.Ssr;
+import com.wcm.repository.SsrRepository;
 import com.wcm.repository.WheelChairRepository;
 import com.wcm.service.AirlineService;
 import com.wcm.service.SationServiceMAA;
@@ -58,6 +60,9 @@ public class DemoController {
 
 	@Autowired
 	private ApplicationShutDownManager shutDownManager;
+	
+	@Autowired
+	private SsrRepository ssrRepo;
 
 	// changing the status of wheel chair
 	@PutMapping("/update/wc/status/{id}")
@@ -131,5 +136,11 @@ public class DemoController {
 		airlineService.DeleteQueue();
 		shutDownManager.initiateShutdown(0);
 		System.out.println("Terminated");
+	}
+	
+	@GetMapping("/getssr")
+	public List<Ssr> getssr() {
+		Long i = (long) 102;
+		return ssrRepo.getSsrOnStaff(i);
 	}
 }
