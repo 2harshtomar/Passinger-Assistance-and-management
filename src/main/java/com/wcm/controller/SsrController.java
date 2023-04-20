@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,7 @@ import com.wcm.service.StaffService;
 import com.wcm.service.WheelChairService;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/api/ssr")
 public class SsrController {
 
@@ -101,6 +103,7 @@ public class SsrController {
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 		
 	}
+	// connect this to staff dashboard assign tasks
 	@GetMapping("/staff/get/ssrInfo")
 	public ResStaffSsrDto getSsrDetailsForSatff(Principal principal) {
 		return ssrService.isSource(principal);
@@ -186,11 +189,12 @@ public class SsrController {
 		responseDto.setMessage("Source staff and wheel chair status updated");
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
+	// if staff id matches destination staff id in ssr
 	@PutMapping("/staff/updateArciveStatus/principal")
 	public ResponseEntity<Object> updateArchiveStatusPrincipal(Principal principal){
 		return ssrService.updateArchiveStatus(principal);
 	}
-	
+	// if staff id matches source staff id in ssr
 	@PutMapping("/update/source/staff/principal")
 	public ResponseEntity<Object> updateSourceStaffPrincipal(Principal principal){
 		return ssrService.updateSourceStaff(principal);

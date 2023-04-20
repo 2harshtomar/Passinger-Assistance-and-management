@@ -39,7 +39,7 @@ public class StaffService {
 	private ResponseDto responseDto;
 	
 	private final static String ACCOUNT_SID = "AC414fae3bea4bf8aad1545c1265e2523d";
-	private final static String AUTH_ID = "acab93af96dc2bf6c85b6464fa6fdd95";
+	private final static String AUTH_ID = "bbbf1cd34530f1347788edc9af4bc00c";
 
 	static {
 	   Twilio.init(ACCOUNT_SID, AUTH_ID);
