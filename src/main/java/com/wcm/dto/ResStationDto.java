@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.wcm.model.Staff;
 import com.wcm.model.Wheel_Chair;
 @Component
 public class ResStationDto {
@@ -14,7 +13,7 @@ public class ResStationDto {
 	private String location;
 	private String type;
 	private String username;
-	private List<Staff> staff;
+	private List<ResStaffDto> staff;
 	private List<Wheel_Chair> wheelChair;
 
 	public Long getId() {
@@ -53,11 +52,11 @@ public class ResStationDto {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public List<Staff> getStaff() {
+	public List<ResStaffDto> getStaff() {
 		return staff;
 	}
-	public void setStaff(List<Staff> staff) {
-		this.staff = staff;
+	public void setStaff(List<ResStaffDto> list) {
+		this.staff = list;
 	}
 	public List<Wheel_Chair> getWheelChair() {
 		return wheelChair;

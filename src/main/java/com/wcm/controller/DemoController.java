@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wcm.ApplicationShutDownManager;
+import com.wcm.dto.ResStaffDto;
 import com.wcm.dto.ResponseDto;
 import com.wcm.exception.ResourseNotFoundException;
-import com.wcm.model.Staff;
 import com.wcm.repository.WheelChairRepository;
 import com.wcm.service.AirlineService;
 import com.wcm.service.SationServiceMAA;
@@ -80,7 +80,7 @@ public class DemoController {
 	}
 	
 	@GetMapping("/get/staff/based/on/code")
-	public List<Staff> getStaffBasedOnCode(Principal principal){
+	public List<ResStaffDto> getStaffBasedOnCode(Principal principal){
 		return staffService.getStaff(principal);
 	}
 	@GetMapping("/get/wheel/chair")

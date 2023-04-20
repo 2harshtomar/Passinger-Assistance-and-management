@@ -11,6 +11,10 @@ public class ResStaffDto {
 	private String contact;
 	private String email;
 	private String username;
+	
+	
+	
+
 	public Long getId() {
 		return id;
 	}

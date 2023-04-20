@@ -93,7 +93,7 @@ public class StaffController {
 	}
 	// get all 
 	@GetMapping("/get/all")
-	public List<Staff> getAllStaff(Principal principal){
+	public List<ResStaffDto> getAllStaff(Principal principal){
 		return staffService.getStaff(principal);
 		
 	}

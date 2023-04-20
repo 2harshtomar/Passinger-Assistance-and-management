@@ -1,6 +1,7 @@
 package com.wcm.service;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import com.wcm.dto.ResStaffDto;
 import com.wcm.dto.ResponseDto;
 import com.wcm.model.Staff;
 import com.wcm.model.User;
@@ -45,7 +47,7 @@ public class StaffService {
 	   Twilio.init(ACCOUNT_SID, AUTH_ID);
 	}
 
-	public List<Staff> getStaff(Principal principal){ // code passed is station code NOT STAFF CODE
+	public List<ResStaffDto> getStaff(Principal principal){ // code passed is station code NOT STAFF CODE
 
 		String username = principal.getName();
 		User user = userRepo.findByUsername(username);
@@ -61,8 +63,20 @@ public class StaffService {
 	    String stcode = code.substring(0,sepPos);
 //	    System.out.println(code + "->" + stcode);
 	    List<Staff> staffList = staffRepo.findstaffByCode(stcode);
-
-		return staffList;
+	    List <ResStaffDto> retStaff = new ArrayList<>();
+	    for (Staff s:staffList) {
+	    	ResStaffDto resStaffDto = new ResStaffDto();
+	    	resStaffDto.setId(s.getId());
+	    	resStaffDto.setName(s.getName());
+	    	resStaffDto.setContact(s.getContact());
+	    	resStaffDto.setEmail(s.getEmail());
+	    	resStaffDto.setContact(s.getContact());
+	    	resStaffDto.setStaffCode(s.getStaffCode());
+	    	resStaffDto.setStatus(s.getStatus());
+	    	resStaffDto.setUsername(s.getUser().getUsername());
+	    	retStaff.add(resStaffDto);
+	    }
+		return retStaff;
 
 	}
 	public ResponseEntity<Object> updateStaffStatus(Long id) {

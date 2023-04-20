@@ -72,6 +72,7 @@ public class UserController {
  		}
 		if(user.getRole().equalsIgnoreCase("STAFF")) {
 			Staff staff = staffRepo.findStaffDetails(username);
+			staffDto.setId(staff.getId());
 			staffDto.setName(staff.getName());
 			staffDto.setStaffCode(staff.getStaffCode());
 			staffDto.setStatus(staff.getStatus());
@@ -84,6 +85,7 @@ public class UserController {
 
 		if(user.getRole().equalsIgnoreCase("STATION")) {
 			Station station = stationRepo.findStationDetails(username);
+			stationDto.setId(station.getId());
 			stationDto.setName(station.getName());
 			stationDto.setLocation(station.getLocation());
 			stationDto.setStNumber(station.getStNumber());
@@ -94,6 +96,7 @@ public class UserController {
 
 		if(user.getRole().equalsIgnoreCase("AIRLINE")) {
 			Airline airline = airlineRepo.findAirlineDetails(username);
+			airlineDto.setId(airline.getId());
 			airlineDto.setName(airline.getName());
 			airlineDto.setAirlineCode(airline.getAirlineCode());
 			airlineDto.setUsername(airline.getUser().getUsername());

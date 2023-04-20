@@ -1,5 +1,6 @@
 package com.wcm.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -7,17 +8,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.wcm.dto.ResWheelchairDto;
 import com.wcm.dto.ResponseDto;
 import com.wcm.model.Wheel_Chair;
 import com.wcm.repository.WheelChairRepository;
+import com.wcm.service.WheelChairService;
 
-
+@RestController
+@CrossOrigin(origins = {"http://localhost:4200"})
+@RequestMapping("/api/wheelChair")
 public class WheelchairController {
 	
 	@Autowired
@@ -25,6 +32,9 @@ public class WheelchairController {
 	
 	@Autowired
 	WheelChairRepository wcr;
+	
+	@Autowired
+	WheelChairService wheelChairService;
 	
 	/* Author : Aaditya Mohan
 	 * emp id : 2000081375
@@ -61,6 +71,11 @@ public class WheelchairController {
 		responseDto.setMessage("Wheelchair added sucessfully.");
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(responseDto);
+	}
+	
+	@GetMapping("/get/all")
+	public List<Wheel_Chair> getWheelChairs(Principal principal){
+		return wheelChairService.getStaff(principal);
 	}
 
 }
