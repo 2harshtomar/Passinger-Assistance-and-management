@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wcm.dto.ResPassengerDetailsDto;
+import com.wcm.dto.ResPassengerDetailsFlightDto;
 import com.wcm.dto.ResponseDto;
 import com.wcm.model.Flight_details;
 import com.wcm.model.PassengerDetails;
@@ -41,6 +42,8 @@ public class PassengerController {
 	@Autowired
 	private ResponseDto responseDto;
 	
+	@Autowired
+	private ResPassengerDetailsFlightDto resPassengerDetailsFlightDto;
 	//post by id
 	@PostMapping("/add/{id}")
 	public ResponseEntity<Object> addPassenger(@RequestBody PassengerDetails passenger, @PathVariable("id") Long id) {
@@ -57,10 +60,12 @@ public class PassengerController {
 		passengerDB.setContact(passenger.getContact());
 		passengerDB.setFlightDetails(flightDetails);
 		
-		passengerRepository.save(passengerDB);
-		responseDto.setMessage("Passenger added successfully");
-		
-		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+		passengerDB =  passengerRepository.save(passengerDB);
+		resPassengerDetailsFlightDto.setId(passengerDB.getId());
+		resPassengerDetailsFlightDto.setName(passengerDB.getName());
+		resPassengerDetailsFlightDto.setContact(passengerDB.getContact());
+		resPassengerDetailsFlightDto.setAddress(passengerDB.getAddress());
+		return ResponseEntity.status(HttpStatus.OK).body(resPassengerDetailsFlightDto);
 		
 	}
 	

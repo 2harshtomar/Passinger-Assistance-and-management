@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wcm.dto.PassengerResSsrDto;
 import com.wcm.dto.ResSsrDto;
-import com.wcm.dto.ResStaffSsrDto;
 import com.wcm.dto.ResponseDto;
 import com.wcm.model.PassengerDetails;
 import com.wcm.model.Ssr;

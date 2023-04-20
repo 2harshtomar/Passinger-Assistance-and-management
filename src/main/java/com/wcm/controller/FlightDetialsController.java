@@ -1,5 +1,7 @@
 package com.wcm.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wcm.dto.ReqFlightDetailsDto;
+import com.wcm.dto.ResFlightDetailsDto;
 import com.wcm.dto.ResponseDto;
 import com.wcm.model.Airline;
 import com.wcm.model.Flight_details;
@@ -105,6 +108,27 @@ public class FlightDetialsController {
 			
 			return ResponseEntity.status(HttpStatus.OK).body(resFlightDto);
 		}
+		@GetMapping("/get/all")
+		public List<ResFlightDetailsDto> getAll() {
+			List<Flight_details> flights = flightDetailsRepository.findAll();
+			List<ResFlightDetailsDto> retFlights = new ArrayList<>();
+			for (Flight_details f: flights) {
+				ResFlightDetailsDto dto = new ResFlightDetailsDto();
+				dto.setDestinationStationName(f.getDestinationStation().getName());
+				dto.setFromDateTime(f.getFromDateTime());
+				dto.setDestinationTerminalNo(f.getDestinationTerminalNo());
+				dto.setdStNumber(f.getDestinationStation().getStNumber());
+				dto.setFlightNo(f.getFlightNo());
+				dto.setId(f.getId());
+				dto.setSourceStationName(f.getSourceStation().getName());
+				dto.setSourseTerminalNo(f.getSourseTerminalNo());
+				dto.setToDateTime(f.getToDateTime());
+				dto.setsStNumber(f.getSourceStation().getStNumber());
+				retFlights.add(dto);
+			}
+			return retFlights;
+		}
+		
 		@PutMapping("/update/flight/{fid}")
 		public ResponseEntity<Object> updateFlightDetails(@PathVariable("fid") Long fid){
 			return flightService.updateFlightStatus(fid);
