@@ -13,6 +13,7 @@ public class ResStationDto {
 	private String location;
 	private String type;
 	private String username;
+	private Long userId;
 	private List<ResStaffDto> staff;
 	private List<Wheel_Chair> wheelChair;
 
@@ -64,6 +65,12 @@ public class ResStationDto {
 	public void setWheelChair(List<Wheel_Chair> wheelChair) {
 		this.wheelChair = wheelChair;
 	}
-
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+	
 
 }

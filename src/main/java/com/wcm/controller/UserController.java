@@ -90,6 +90,7 @@ public class UserController {
 			stationDto.setLocation(station.getLocation());
 			stationDto.setStNumber(station.getStNumber());
 			stationDto.setUsername(station.getUser().getUsername());
+			stationDto.setUserId(station.getUser().getId());
 
 			return stationDto;
 		}
@@ -100,6 +101,7 @@ public class UserController {
 			airlineDto.setName(airline.getName());
 			airlineDto.setAirlineCode(airline.getAirlineCode());
 			airlineDto.setUsername(airline.getUser().getUsername());
+			airlineDto.setUserId(airline.getUser().getId());
 		}
 		return null;
 	}
