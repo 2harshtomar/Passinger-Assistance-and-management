@@ -1,6 +1,7 @@
 package com.wcm.service;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -100,10 +101,17 @@ public class StaffService {
 		responseDto.setMessage("Status Updated");
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
-	public ResponseEntity<Object> sendSMS(String msg) {
-	      Message.creator(new PhoneNumber("+916397382080"), new PhoneNumber("+15074456938"),
-	    	         msg).create();
-	      responseDto.setMessage("Message sent");
+	public ResponseEntity<Object> sendSMS(String contact, String name, String pname, String pcontact, String terminalNo, String stNumber, LocalDateTime from) {
+		
+		String msg = "Task Assiged to "+ name + "Contact - "
+		+ contact + " Pick Passenger " + pname 
+		+ ",Contact- "+ pcontact + "From Station- " 
+		+ stNumber + ", Terminal- "+ terminalNo + ", At "+ from;
+		String toNum = "+91" + contact;
+		System.out.println(toNum);
+//	    Message.creator(new PhoneNumber(toNum), new PhoneNumber("+15074456938"),
+//	    	         msg).create();
+	    responseDto.setMessage("Message sent");
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	      
 	}

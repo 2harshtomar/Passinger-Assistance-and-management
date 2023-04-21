@@ -18,6 +18,8 @@ public class ResSsrDto {
 	private String sourseTerminalNo;
 	private String destTerminalNo;
 	private boolean isArcived;
+	private Long sid;
+	private Long did;
 	
 	public String getPname() {
 		return pname;
@@ -91,5 +93,18 @@ public class ResSsrDto {
 	public void setIsArcived(boolean b) {
 		this.isArcived = b;
 	}
+	public Long getSid() {
+		return sid;
+	}
+	public void setSid(Long sid) {
+		this.sid = sid;
+	}
+	public Long getDid() {
+		return did;
+	}
+	public void setDid(Long did) {
+		this.did = did;
+	}
+	
 	
 }

@@ -98,6 +98,9 @@ public class SsrController {
 			}
 		}
 		ssrRepo.save(ssr);
+		
+//		staffService.sendSMS(ssr.getsStaff().getContact(), ssr.getsStaff().getName(), ssr.getPssengerDetails().getName(), ssr.getPssengerDetails().getContact(), ssr.getPssengerDetails().getFlightDetails().getSourseTerminalNo(), ssr.getPssengerDetails().getFlightDetails().getSourceStation().getStNumber(), ssr.getPssengerDetails().getFlightDetails().getFromDateTime());
+//		staffService.sendSMS(ssr.getdStaff().getContact(), ssr.getdStaff().getName(), ssr.getPssengerDetails().getName(), ssr.getPssengerDetails().getContact(), ssr.getPssengerDetails().getFlightDetails().getDestinationTerminalNo(), ssr.getPssengerDetails().getFlightDetails().getDestinationStation().getStNumber(), ssr.getPssengerDetails().getFlightDetails().getToDateTime());
 		responseDto.setMessage("SSR raised successfully");
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 		
@@ -128,6 +131,9 @@ public class SsrController {
 		resSsrDto.setdStNumber(ssr.getPssengerDetails().getFlightDetails().getDestinationStation().getStNumber());
 		resSsrDto.setSsrStatus(ssr.getStatus());
 		resSsrDto.setIsArcived(ssr.isArcived());
+		resSsrDto.setSid(ssr.getsStaff().getId());
+		resSsrDto.setDid(ssr.getdStaff().getId());
+		
 		return ResponseEntity.status(HttpStatus.OK).body(resSsrDto);
 		
 	}
@@ -197,6 +203,22 @@ public class SsrController {
 	@PutMapping("/update/source/staff/principal")
 	public ResponseEntity<Object> updateSourceStaffPrincipal(Principal principal){
 		return ssrService.updateSourceStaff(principal);
+	}
+	@GetMapping("/staff/get/ssrInfo/id/{staffId}")
+	public ResponseEntity<Object> getStaffInfo(@PathVariable("staffId") Long sid){
+		return ssrService.getStaffInfo(sid);
+		
+	}
+	
+	// same api's but we are passing id's instead of principal
+	@PutMapping("/staff/updateArciveStatus/id/{id}")
+	public ResponseEntity<Object> updateArchiveStatusPrincipalbyID(@PathVariable("id") Long id){
+		return ssrService.updateArchiveStatusbyID(id);
+	}
+	
+	@PutMapping("/update/source/staff/id/{id}")
+	public ResponseEntity<Object> updateSourceStaffPrincipalbyID(@PathVariable("id") Long id){
+		return ssrService.updateSourceStaffbyID(id);
 	}
 }
 	
