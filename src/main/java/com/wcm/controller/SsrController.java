@@ -99,8 +99,8 @@ public class SsrController {
 		}
 		ssrRepo.save(ssr);
 		
-//		staffService.sendSMS(ssr.getsStaff().getContact(), ssr.getsStaff().getName(), ssr.getPssengerDetails().getName(), ssr.getPssengerDetails().getContact(), ssr.getPssengerDetails().getFlightDetails().getSourseTerminalNo(), ssr.getPssengerDetails().getFlightDetails().getSourceStation().getStNumber(), ssr.getPssengerDetails().getFlightDetails().getFromDateTime());
-//		staffService.sendSMS(ssr.getdStaff().getContact(), ssr.getdStaff().getName(), ssr.getPssengerDetails().getName(), ssr.getPssengerDetails().getContact(), ssr.getPssengerDetails().getFlightDetails().getDestinationTerminalNo(), ssr.getPssengerDetails().getFlightDetails().getDestinationStation().getStNumber(), ssr.getPssengerDetails().getFlightDetails().getToDateTime());
+		staffService.sendSMS(ssr.getsStaff().getContact(), ssr.getsStaff().getName(), ssr.getPssengerDetails().getName(), ssr.getPssengerDetails().getContact(), ssr.getPssengerDetails().getFlightDetails().getSourseTerminalNo(), ssr.getPssengerDetails().getFlightDetails().getSourceStation().getStNumber(), ssr.getPssengerDetails().getFlightDetails().getFromDateTime());
+		staffService.sendSMS(ssr.getdStaff().getContact(), ssr.getdStaff().getName(), ssr.getPssengerDetails().getName(), ssr.getPssengerDetails().getContact(), ssr.getPssengerDetails().getFlightDetails().getDestinationTerminalNo(), ssr.getPssengerDetails().getFlightDetails().getDestinationStation().getStNumber(), ssr.getPssengerDetails().getFlightDetails().getToDateTime());
 		responseDto.setMessage("SSR raised successfully");
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 		

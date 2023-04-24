@@ -42,7 +42,7 @@ public class StaffService {
 	private ResponseDto responseDto;
 	
 	private final static String ACCOUNT_SID = "AC414fae3bea4bf8aad1545c1265e2523d";
-	private final static String AUTH_ID = "bbbf1cd34530f1347788edc9af4bc00c";
+	private final static String AUTH_ID = "ca4f46c3cf416037d599605b7e85d9d1";
 
 	static {
 	   Twilio.init(ACCOUNT_SID, AUTH_ID);
@@ -109,8 +109,9 @@ public class StaffService {
 		+ stNumber + ", Terminal- "+ terminalNo + ", At "+ from;
 		String toNum = "+91" + contact;
 		System.out.println(toNum);
-//	    Message.creator(new PhoneNumber(toNum), new PhoneNumber("+15074456938"),
-//	    	         msg).create();
+	    Message.creator(new PhoneNumber(toNum), new PhoneNumber("+15074456938"),
+	    	         msg).create();
+		System.out.println(msg);
 	    responseDto.setMessage("Message sent");
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	      

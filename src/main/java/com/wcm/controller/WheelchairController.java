@@ -20,6 +20,7 @@ import com.wcm.dto.ResWheelchairDto;
 import com.wcm.dto.ResponseDto;
 import com.wcm.model.Wheel_Chair;
 import com.wcm.repository.WheelChairRepository;
+import com.wcm.service.StationRouterService;
 import com.wcm.service.WheelChairService;
 
 @RestController
@@ -36,12 +37,15 @@ public class WheelchairController {
 	@Autowired
 	WheelChairService wheelChairService;
 	
+	@Autowired
+	StationRouterService srs;
+	
 	/* Author : Aaditya Mohan
 	 * emp id : 2000081375
 	 */
 	//get
 	
-	@GetMapping("/get/all/wheelchair")
+	@GetMapping("/get/wheelChair")
 	public ResponseEntity<Object> getWheelchairDetails(@RequestBody Wheel_Chair wheelchair){
 		List<Wheel_Chair>list =  wcr.findAll();
 		List<ResWheelchairDto> listDto = new ArrayList<>();
@@ -60,12 +64,15 @@ public class WheelchairController {
 	}
 	
 	
-	@PostMapping("/add/wheelchair/{code}")
-	public ResponseEntity<Object> addWheelchair(@RequestBody ResponseDto responseDto,@PathVariable ("code") String code){
+	@PostMapping("/add/{userID}")
+	public ResponseEntity<Object> addWheelchair(@RequestBody ResponseDto responseDto,@PathVariable ("userID") Long id){
 		
 		Wheel_Chair wheelchair = new Wheel_Chair();
-		wheelchair.setWcCode(code);
+//		wheelchair.setWcCode(srs.getEntity(id));
 		wheelchair.setWcStatus(true);
+		wheelchair = wcr.save(wheelchair);
+		String code = srs.getEntity(id)+ "-"+wheelchair.getId();
+		wheelchair.setWcCode(code);
 		wcr.save(wheelchair);
 		
 		responseDto.setMessage("Wheelchair added sucessfully.");
