@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Component;
 @Component
 public class ResStaffSsrDto {
+	private Long id;
 	private String pname;
 	private String pcontact;
 	private String StNumber;
@@ -90,6 +91,12 @@ public class ResStaffSsrDto {
 	}
 	public void setDid(Long did) {
 		this.did = did;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

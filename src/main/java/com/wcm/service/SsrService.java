@@ -41,6 +41,7 @@ public class SsrService {
 		List<Ssr> ssrs  = ssrRepo.getSsrOnStaff(staff.getId());
 		for (Ssr s: ssrs) {
 			if(staff.getId() == s.getsStaff().getId() || staff.getId() == s.getdStaff().getId()) {
+				resStaffSsrDto.setId(s.getId());
 				resStaffSsrDto.setSid(s.getsStaff().getId());
 				resStaffSsrDto.setDid(s.getdStaff().getId());
 				resStaffSsrDto.setPname(s.getPssengerDetails().getName());
@@ -77,6 +78,7 @@ public class SsrService {
 		List<Ssr> ssrs  = ssrRepo.getSsrOnStaff(staff.getId());
 		for (Ssr s: ssrs) {
 			if(staff.getId() == s.getsStaff().getId() || staff.getId() == s.getdStaff().getId()) {
+				resStaffSsrDto.setId(s.getId());
 				resStaffSsrDto.setSid(s.getsStaff().getId());
 				resStaffSsrDto.setDid(s.getdStaff().getId());
 				resStaffSsrDto.setPname(s.getPssengerDetails().getName());
