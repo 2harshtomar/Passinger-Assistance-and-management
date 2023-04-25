@@ -161,11 +161,12 @@ public class SsrService {
 					s.setStatus("ACTIVE-PASSENGER DEPARTED");
 				}
 				ssrRepo.save(s);
+				resStaffSsrDto = convertToDto(s);
 			}
 		}
 
-		responseDto.setMessage("Source staff and wheel chair status updated");
-		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+//		responseDto.setMessage("Source staff and wheel chair status updated");
+		return ResponseEntity.status(HttpStatus.OK).body(resStaffSsrDto);
 	}
 	
 	// same method by passing id
@@ -187,9 +188,28 @@ public class SsrService {
 					wheelChairService.UpdateStatus(s.getdWheelChair().getId());
 				}
 				ssrRepo.save(s);
+				resStaffSsrDto = convertToDto(s);
 			}
 		}
-		responseDto.setMessage("SSR Archived");
-		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+//		responseDto.setMessage("SSR Archived");
+		return ResponseEntity.status(HttpStatus.OK).body(resStaffSsrDto);
+	}
+	
+	public ResStaffSsrDto convertToDto(Ssr s){
+		resStaffSsrDto.setId(s.getId());
+		resStaffSsrDto.setSid(s.getsStaff().getId());
+		resStaffSsrDto.setDid(s.getdStaff().getId());
+		resStaffSsrDto.setPname(s.getPssengerDetails().getName());
+		resStaffSsrDto.setPcontact(s.getPssengerDetails().getContact());
+		resStaffSsrDto.setFlightNo(s.getPssengerDetails().getFlightDetails().getFlightNo());
+		resStaffSsrDto.setFlStatus(s.getPssengerDetails().getFlightDetails().getStatus());
+		resStaffSsrDto.setFromDateTime(s.getPssengerDetails().getFlightDetails().getFromDateTime());
+		resStaffSsrDto.setTerminalNo(s.getPssengerDetails().getFlightDetails().getDestinationTerminalNo());
+		resStaffSsrDto.setStNumber(s.getPssengerDetails().getFlightDetails().getDestinationStation().getStNumber());
+		resStaffSsrDto.setToDateTime(s.getPssengerDetails().getFlightDetails().getToDateTime());
+		resStaffSsrDto.setSsrStatus(s.getStatus());
+		resStaffSsrDto.setArcived(s.isArcived());
+		
+		return resStaffSsrDto;
 	}
 }
