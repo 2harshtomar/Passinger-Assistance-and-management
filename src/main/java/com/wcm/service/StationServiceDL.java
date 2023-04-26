@@ -24,7 +24,7 @@ public class StationServiceDL implements StaffWheelChairFactory {
 	private Queue<Object> staffQueueDL;
 	private Queue<Object> wheelchairQueueDL;
 	private Set<Object> wheelchairSet;
-	private Set<Object> staffSet;
+	private Set<Object> staffSetDL;
 	
 
 	@Autowired
@@ -49,7 +49,7 @@ public class StationServiceDL implements StaffWheelChairFactory {
 	@Override
 	public void createQueue() {
 		this.staffQueueDL = wcmQueue.createQueue();
-		this.staffSet = wcmSet.createSet();
+		this.staffSetDL = wcmSet.createSet();
 		this.wheelchairQueueDL = wcmQueue.createQueue();
 		this.wheelchairSet = wcmSet.createSet();
 	}
@@ -59,10 +59,11 @@ public class StationServiceDL implements StaffWheelChairFactory {
 	// method will get Available staff from db and puth them into queue
 	@Scheduled(fixedDelay = 15000, initialDelay = 2000)
 	public void updateStaffQueue() {
-		this.staffSet = staffRepo.getStaffSet("DL", "AVAILABLE");
-		this.staffSet.removeAll(this.staffQueueDL);
-		this.staffQueueDL.addAll(this.staffSet);
-		this.staffSet.clear();
+		this.staffSetDL = staffRepo.getStaffSet("DL", "AVAILABLE");
+		this.staffSetDL.removeAll(this.staffQueueDL);
+		//System.out.println("SET - "+staffSetDL.toString());
+		this.staffQueueDL.addAll(this.staffSetDL);
+		this.staffSetDL.clear();
 	}
 	
 	// get the status of the queue
@@ -111,7 +112,7 @@ public class StationServiceDL implements StaffWheelChairFactory {
 	@Override
 	public void DeleteQueue() {
 		this.staffQueueDL = null;
-		this.staffSet = null;
+		this.staffSetDL = null;
 		System.out.println("Queue nullified");
 	}
 	

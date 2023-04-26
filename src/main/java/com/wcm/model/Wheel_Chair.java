@@ -43,7 +43,8 @@ public class Wheel_Chair {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		
 		Wheel_Chair wheelChair = (Wheel_Chair) obj;
-		return id == wheelChair.id;
+		if(this.id.equals(wheelChair.getId())) {return true;}
+		return false;
 	}
 	@Override
 	public String toString() {

@@ -70,10 +70,15 @@ public class Staff {
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
 		if (this == obj) return true;
-		if (obj == null || getClass() != obj.getClass()) return false;
+		if (obj == null || this.getClass() != obj.getClass()) return false;
 		
 		Staff staff = (Staff) obj;
-		return id == staff.id;
+//		System.out.println(this.id + "  " + staff.id);
+//		System.out.println(this.getId()==staff.getId());
+//		System.out.println(this.id.getClass() +"  "+ staff.getId().getClass());
+		if(this.id.equals(staff.id)) {return true;}
+//		if(this.getId() == staff.id) {return true;} // == does not work in this case
+		return false;
 	}
 	
 	public String getContact() {

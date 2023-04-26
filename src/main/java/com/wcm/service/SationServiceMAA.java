@@ -61,7 +61,7 @@ public class SationServiceMAA implements StaffWheelChairFactory {
 	@Scheduled(fixedDelay = 15000, initialDelay = 2000)
 	public void updateStaffQueue() {
 		this.staffSet = staffRepo.getStaffSet("MAA", "AVAILABLE");
-		this.staffSet.removeAll(this.staffQueueMAA);
+		System.out.println(this.staffSet.toString());
 		this.staffQueueMAA.addAll(this.staffSet);
 		this.staffSet.clear();
 	}

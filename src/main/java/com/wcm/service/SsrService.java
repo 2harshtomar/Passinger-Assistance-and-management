@@ -60,9 +60,6 @@ public class SsrService {
 				}
 				
 			}
-			else {
-				resStaffSsrDto = null;
-			}
 
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(resStaffSsrDto);
