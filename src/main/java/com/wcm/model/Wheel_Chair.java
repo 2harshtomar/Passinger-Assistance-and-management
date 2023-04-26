@@ -51,6 +51,4 @@ public class Wheel_Chair {
 		return "Wheel_Chair [id=" + id + ", wcCode=" + wcCode + ", wcStatus=" + wcStatus + "]";
 	}
 	
-	
-
 }

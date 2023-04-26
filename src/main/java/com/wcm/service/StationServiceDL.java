@@ -61,7 +61,6 @@ public class StationServiceDL implements StaffWheelChairFactory {
 	public void updateStaffQueue() {
 		this.staffSetDL = staffRepo.getStaffSet("DL", "AVAILABLE");
 		this.staffSetDL.removeAll(this.staffQueueDL);
-		//System.out.println("SET - "+staffSetDL.toString());
 		this.staffQueueDL.addAll(this.staffSetDL);
 		this.staffSetDL.clear();
 	}
