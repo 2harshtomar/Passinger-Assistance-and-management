@@ -20,6 +20,8 @@ public class ResSsrDto {
 	private boolean isArcived;
 	private Long sid;
 	private Long did;
+	private String sourceGateNo;
+	private String destinationGateNo;
 	
 	public String getPname() {
 		return pname;
@@ -104,6 +106,18 @@ public class ResSsrDto {
 	}
 	public void setDid(Long did) {
 		this.did = did;
+	}
+	public String getSourceGateNo() {
+		return sourceGateNo;
+	}
+	public void setSourceGateNo(String sourceGateNo) {
+		this.sourceGateNo = sourceGateNo;
+	}
+	public String getDestinationGateNo() {
+		return destinationGateNo;
+	}
+	public void setDestinationGateNo(String destinationGateNo) {
+		this.destinationGateNo = destinationGateNo;
 	}
 	
 	

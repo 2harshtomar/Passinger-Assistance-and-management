@@ -42,7 +42,7 @@ public class StaffService {
 	private ResponseDto responseDto;
 	
 	private final static String ACCOUNT_SID = "AC414fae3bea4bf8aad1545c1265e2523d";
-	private final static String AUTH_ID = "ca4f46c3cf416037d599605b7e85d9d1";
+	private final static String AUTH_ID = "53e38add807434549fde6221956ccb71";
 
 	static {
 	   Twilio.init(ACCOUNT_SID, AUTH_ID);
@@ -103,10 +103,10 @@ public class StaffService {
 	}
 	public ResponseEntity<Object> sendSMS(String contact, String name, String pname, String pcontact, String terminalNo, String stNumber, LocalDateTime from) {
 		
-		String msg = "Task Assiged to "+ name + "Contact - "
-		+ contact + " Pick Passenger " + pname 
-		+ ",Contact- "+ pcontact + "From Station- " 
-		+ stNumber + ", Terminal- "+ terminalNo + ", At "+ from;
+		String msg = "Task Assiged to "+ name + "\nContact - "
+		+ contact + "\nPick Passenger " + pname 
+		+ "\nContact- "+ pcontact + "\nFrom Station- " 
+		+ stNumber + "\nTerminal- "+ terminalNo + "\nAt "+ from;
 		String toNum = "+91" + contact;
 		System.out.println(toNum);
 	    Message.creator(new PhoneNumber(toNum), new PhoneNumber("+15074456938"),

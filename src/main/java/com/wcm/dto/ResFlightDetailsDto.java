@@ -13,6 +13,8 @@ public class ResFlightDetailsDto {
 	private String destinationStationName;
 	private String sStNumber;
 	private String dStNumber;
+	private String sourceGateNo;
+	private String DestinationGateNo;
 	public Long getId() {
 		return id;
 	}
@@ -72,6 +74,18 @@ public class ResFlightDetailsDto {
 	}
 	public void setdStNumber(String dStNumber) {
 		this.dStNumber = dStNumber;
+	}
+	public String getSourceGateNo() {
+		return sourceGateNo;
+	}
+	public void setSourceGateNo(String sourceGateNo) {
+		this.sourceGateNo = sourceGateNo;
+	}
+	public String getDestinationGateNo() {
+		return DestinationGateNo;
+	}
+	public void setDestinationGateNo(String destinationGateNo) {
+		DestinationGateNo = destinationGateNo;
 	}
 	
 	

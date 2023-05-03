@@ -26,6 +26,8 @@ public class ResPassengerDetailsDto {
 	private String destStationLocation;
 	private String airlineName;
 	private String airlineCode;
+	private String sourceGateNo;
+	private String destinationGateNo;
 	
 	public ResPassengerDetailsDto() {
 		
@@ -35,7 +37,7 @@ public class ResPassengerDetailsDto {
 			LocalDateTime fromDateTime, LocalDateTime toDateTime, String airCraftName, String status,
 			String sourseTerminalNo, String destinationTerminalNo, String sourceStationNumber, String sourceStationName,
 			String sourceStationLocation, String destStationNumber, String destStationName, String destStationLocation,
-			String airlineName, String airlineCode) {
+			String airlineName, String airlineCode, String sourceGateNo, String destinationGateNo) {
 		super();
 //		this.id = id;
 		this.name = name;
@@ -56,6 +58,8 @@ public class ResPassengerDetailsDto {
 		this.destStationLocation = destStationLocation;
 		this.airlineName = airlineName;
 		this.airlineCode = airlineCode;
+		this.sourceGateNo = sourceGateNo;
+		this.destinationGateNo = destinationGateNo;
 	}
 
 
@@ -213,18 +217,21 @@ public class ResPassengerDetailsDto {
 	public void setAirlineCode(String airlineCode) {
 		this.airlineCode = airlineCode;
 	}
+	
 
-	@Override
-	public String toString() {
-		return "ResPassengerDetailsDto [name=" + name + ", contact=" + contact + ", address=" + address
-				+ ", flightNo=" + flightNo + ", fromDateTime=" + fromDateTime + ", toDateTime=" + toDateTime
-				+ ", airCraftName=" + airCraftName + ", status=" + status + ", sourseTerminalNo=" + sourseTerminalNo
-				+ ", destinationTerminalNo=" + destinationTerminalNo + ", sourceStationNumber=" + sourceStationNumber
-				+ ", sourceStationName=" + sourceStationName + ", sourceStationLocation=" + sourceStationLocation
-				+ ", destStationNumber=" + destStationNumber + ", destStationName=" + destStationName
-				+ ", destStationLocation=" + destStationLocation + ", airlineName=" + airlineName + ", airlineCode="
-				+ airlineCode + "]";
+	public String getSourceGateNo() {
+		return sourceGateNo;
 	}
 
-	
+	public void setSourceGateNo(String sourceGateNo) {
+		this.sourceGateNo = sourceGateNo;
+	}
+
+	public String getDestinationGateNo() {
+		return destinationGateNo;
+	}
+
+	public void setDestinationGateNo(String destinationGateNo) {
+		this.destinationGateNo = destinationGateNo;
+	}
 }

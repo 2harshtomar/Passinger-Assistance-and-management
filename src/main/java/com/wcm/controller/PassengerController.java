@@ -26,7 +26,7 @@ import com.wcm.repository.PassengerRepository;
 
 @RestController
 @RequestMapping("/api/passenger")
-@CrossOrigin(origins = "")
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class PassengerController {
 	
 	/* Author : Aaditya Mohan
@@ -88,7 +88,7 @@ public class PassengerController {
 		resPassengerDetailsDto.setFlightNo(passengerDB.getFlightDetails().getFlightNo());
 		resPassengerDetailsDto.setFromDateTime(passengerDB.getFlightDetails().getFromDateTime());
 		resPassengerDetailsDto.setToDateTime(passengerDB.getFlightDetails().getToDateTime());
-		resPassengerDetailsDto.setAirCraftName(passengerDB.getFlightDetails().getAirCraftName());
+		resPassengerDetailsDto.setAirCraftName(passengerDB.getFlightDetails().getCarrier().getName());
 		resPassengerDetailsDto.setStatus(passengerDB.getFlightDetails().getStatus());
 		resPassengerDetailsDto.setSourseTerminalNo(passengerDB.getFlightDetails().getSourseTerminalNo());
 		resPassengerDetailsDto.setDestinationTerminalNo(passengerDB.getFlightDetails().getDestinationTerminalNo());
@@ -100,6 +100,8 @@ public class PassengerController {
 		resPassengerDetailsDto.setDestStationLocation(passengerDB.getFlightDetails().getSourceStation().getLocation());
 		resPassengerDetailsDto.setAirlineName(passengerDB.getFlightDetails().getAirline().getName());
 		resPassengerDetailsDto.setAirlineCode(passengerDB.getFlightDetails().getAirline().getAirlineCode());
+		resPassengerDetailsDto.setSourceGateNo(passengerDB.getFlightDetails().getSourceGateNo());
+		resPassengerDetailsDto.setDestinationGateNo(passengerDB.getFlightDetails().getDestinationGateNo());
 		
 		return ResponseEntity.status(HttpStatus.OK).body(resPassengerDetailsDto);
 	}
@@ -112,7 +114,7 @@ public class PassengerController {
 		for(PassengerDetails p : list) {
 			ResPassengerDetailsDto dto = new ResPassengerDetailsDto();
 			dto.setAddress(p.getAddress());
-			dto.setAirCraftName(p.getFlightDetails().getAirCraftName());
+			dto.setAirCraftName(p.getFlightDetails().getCarrier().getName());
 			dto.setAirlineCode(p.getFlightDetails().getAirline().getAirlineCode());
 			dto.setAirlineName(p.getFlightDetails().getAirline().getName());
 			dto.setContact(p.getContact());
@@ -130,6 +132,8 @@ public class PassengerController {
 			dto.setSourseTerminalNo(p.getFlightDetails().getSourseTerminalNo());
 			dto.setStatus(p.getFlightDetails().getStatus());
 			dto.setToDateTime(p.getFlightDetails().getToDateTime());
+			dto.setSourceGateNo(p.getFlightDetails().getSourceGateNo());
+			dto.setDestinationGateNo(p.getFlightDetails().getDestinationGateNo());
 			
 			listDto.add(dto);
 		

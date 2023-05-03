@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,14 +20,17 @@ import com.wcm.dto.ReqFlightDetailsDto;
 import com.wcm.dto.ResFlightDetailsDto;
 import com.wcm.dto.ResponseDto;
 import com.wcm.model.Airline;
+import com.wcm.model.Carrier;
 import com.wcm.model.Flight_details;
 import com.wcm.model.Station;
 import com.wcm.repository.AirlineRepository;
+import com.wcm.repository.CarrierRepository;
 import com.wcm.repository.FlightDetailsRepository;
 import com.wcm.repository.StationRepository;
 import com.wcm.service.FlightDetailsService;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/api/flight/details")
 public class FlightDetialsController {
 	
@@ -46,10 +50,16 @@ public class FlightDetialsController {
 		private AirlineRepository airlineRepository;
 		
 		@Autowired
+		private CarrierRepository carrierRepository;
+		
+		@Autowired
 		private FlightDetailsService flightService;
 		
-		@PostMapping("/add/{sid}/{did}/{aid}")
-		public ResponseEntity<Object> addFlight(@PathVariable("sid") Long sid, @PathVariable("did") Long did, @PathVariable("aid") Long aid, @RequestBody ReqFlightDetailsDto flightDto){
+		@PostMapping("/add/{sid}/{did}/{aid}/{cid}")
+		public ResponseEntity<Object> addFlight(@PathVariable("sid") 
+		Long sid, @PathVariable("did") Long did, @PathVariable("aid") 
+		Long aid, @PathVariable("cid") Long cid, 
+		@RequestBody ReqFlightDetailsDto flightDto){
 			Optional<Station> soptional = stationRepository.findById(sid);
 			if(soptional.isEmpty()) {
 				responseDto.setMessage("Invalid Source station ID");
@@ -65,10 +75,16 @@ public class FlightDetialsController {
 				responseDto.setMessage("Invalid Airline ID");
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
 			}
+			Optional<Carrier> coptional = carrierRepository.findById(cid);
+			if(aoptional.isEmpty()) {
+				responseDto.setMessage("Invalid Carrier ID");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
+			}
 			
 			Station sourceStation = soptional.get();
 			Station destinationStation = doptional.get();
 			Airline airline = aoptional.get();
+			Carrier carrier = coptional.get();
 			
 			Flight_details flight = new Flight_details();
 			flight.setFlightNo(flightDto.getFlightNo());
@@ -77,10 +93,12 @@ public class FlightDetialsController {
 			flight.setSourseTerminalNo(flightDto.getSourseTerminalNo());
 			flight.setDestinationTerminalNo(flightDto.getDestinationTerminalNo());
 			flight.setStatus("BOARDED-NA");
-			flight.setAirCraftName(flightDto.getAirCraftName());
+			flight.setCarrier(carrier);
 			flight.setSourceStation(sourceStation);
 			flight.setDestinationStation(destinationStation);
 			flight.setAirline(airline);
+			flight.setSourceGateNo(flightDto.getSourceGateNo());
+			flight.setDestinationGateNo(flight.getDestinationGateNo());
 			
 			flightDetailsRepository.save(flight);
 			responseDto.setMessage("Flight data recorded");
@@ -97,7 +115,7 @@ public class FlightDetialsController {
 			
 			Flight_details flight = optional.get();
 			resFlightDto.setFlightNo(flight.getFlightNo());
-			resFlightDto.setAirCraftName(flight.getAirCraftName());
+			resFlightDto.setAirCraftName(flight.getCarrier().getName());
 			resFlightDto.setSourceSationName(flight.getSourceStation().getName());
 			resFlightDto.setFromDateTime(flight.getFromDateTime());
 			resFlightDto.setSourseTerminalNo(flight.getSourseTerminalNo());
@@ -105,6 +123,8 @@ public class FlightDetialsController {
 			resFlightDto.setToDateTime(flight.getToDateTime());
 			resFlightDto.setDestinationTerminalNo(flight.getDestinationTerminalNo());
 			resFlightDto.setStatus(flight.getStatus());
+			resFlightDto.setSourceGateNo(flight.getSourceGateNo());
+			resFlightDto.setDestinationGateNo(flight.getDestinationGateNo());
 			
 			return ResponseEntity.status(HttpStatus.OK).body(resFlightDto);
 		}
@@ -124,6 +144,8 @@ public class FlightDetialsController {
 				dto.setSourseTerminalNo(f.getSourseTerminalNo());
 				dto.setToDateTime(f.getToDateTime());
 				dto.setsStNumber(f.getSourceStation().getStNumber());
+				dto.setSourceGateNo(f.getSourceGateNo());
+				dto.setDestinationGateNo(f.getDestinationGateNo());
 				retFlights.add(dto);
 			}
 			return retFlights;

@@ -7,6 +7,7 @@ public class PassengerResSsrDto {
 	private String staffName;
 	private String staffContact;
 	private String terminalNo;
+	private String gateNo;
 	private String airlineName;
 	private boolean isArcived;
 	
@@ -40,6 +41,13 @@ public class PassengerResSsrDto {
 	public void setArcived(boolean isArcived) {
 		this.isArcived = isArcived;
 	}
+	public String getGateNo() {
+		return gateNo;
+	}
+	public void setGateNo(String gateNo) {
+		this.gateNo = gateNo;
+	}
+	 
 	
 	
 }

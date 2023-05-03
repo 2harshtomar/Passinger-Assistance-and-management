@@ -19,11 +19,15 @@ public class Flight_details {
 	private String flightNo;
 	private LocalDateTime fromDateTime;
 	private LocalDateTime toDateTime;
-	private String airCraftName;
+//	private String airCraftName;
 	private String status; // boarding NA, boarding , departed, arrived 
 	private String sourseTerminalNo;
+	private String sourceGateNo;
 	private String destinationTerminalNo;
-
+	private String destinationGateNo;
+	
+	@OneToOne
+	private Carrier carrier;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<PassengerDetails> passenger;
@@ -67,14 +71,6 @@ public class Flight_details {
 
 	public void setToDateTime(LocalDateTime toDateTime) {
 		this.toDateTime = toDateTime;
-	}
-
-	public String getAirCraftName() {
-		return airCraftName;
-	}
-
-	public void setAirCraftName(String airCraftName) {
-		this.airCraftName = airCraftName;
 	}
 
 	public String getStatus() {
@@ -131,6 +127,30 @@ public class Flight_details {
 
 	public void setAirline(Airline airline) {
 		this.airline = airline;
+	}
+
+	public String getSourceGateNo() {
+		return sourceGateNo;
+	}
+
+	public void setSourceGateNo(String sourceGateNo) {
+		this.sourceGateNo = sourceGateNo;
+	}
+
+	public String getDestinationGateNo() {
+		return destinationGateNo;
+	}
+
+	public void setDestinationGateNo(String destinationGateNo) {
+		this.destinationGateNo = destinationGateNo;
+	}
+
+	public Carrier getCarrier() {
+		return carrier;
+	}
+
+	public void setCarrier(Carrier carrier) {
+		this.carrier = carrier;
 	}
 	
 	

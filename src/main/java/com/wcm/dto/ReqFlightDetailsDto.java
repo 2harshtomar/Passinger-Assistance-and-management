@@ -14,7 +14,9 @@ public class ReqFlightDetailsDto {
 	private String sourseTerminalNo;
 	private String destinationTerminalNo;
 	private String sourceSationName;
+	private String sourceGateNo;
 	private String destinationStationName;
+	private String destinationGateNo;
 	
 	public String getFlightNo() {
 		return flightNo;
@@ -69,6 +71,18 @@ public class ReqFlightDetailsDto {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getSourceGateNo() {
+		return sourceGateNo;
+	}
+	public void setSourceGateNo(String sourceGateNo) {
+		this.sourceGateNo = sourceGateNo;
+	}
+	public String getDestinationGateNo() {
+		return destinationGateNo;
+	}
+	public void setDestinationGateNo(String destinationGateNo) {
+		this.destinationGateNo = destinationGateNo;
 	}
 	
 	

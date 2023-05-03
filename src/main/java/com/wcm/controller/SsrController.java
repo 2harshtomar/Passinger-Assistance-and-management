@@ -105,7 +105,6 @@ public class SsrController {
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 		
 	}
-	// connect this to staff dashboard assign tasks
 	@GetMapping("/staff/get/ssrInfo")
 	public ResponseEntity<Object> getSsrDetailsForSatff(Principal principal) {
 		return ssrService.isSource(principal);
@@ -133,6 +132,8 @@ public class SsrController {
 		resSsrDto.setIsArcived(ssr.isArcived());
 		resSsrDto.setSid(ssr.getsStaff().getId());
 		resSsrDto.setDid(ssr.getdStaff().getId());
+		resSsrDto.setSourceGateNo(ssr.getPssengerDetails().getFlightDetails().getSourceGateNo());
+		resSsrDto.setDestinationGateNo(ssr.getPssengerDetails().getFlightDetails().getDestinationGateNo());
 		
 		return ResponseEntity.status(HttpStatus.OK).body(resSsrDto);
 		
@@ -151,6 +152,7 @@ public class SsrController {
 			passengerResSsrDto.setStaffContact(ssr.getsStaff().getContact());
 			passengerResSsrDto.setStaffName(ssr.getsStaff().getName());
 			passengerResSsrDto.setTerminalNo(ssr.getPssengerDetails().getFlightDetails().getSourseTerminalNo());
+			passengerResSsrDto.setGateNo(ssr.getPssengerDetails().getFlightDetails().getSourceGateNo());
 			passengerResSsrDto.setArcived(ssr.isArcived());
 		}
 		else {
@@ -158,6 +160,7 @@ public class SsrController {
 			passengerResSsrDto.setStaffContact(ssr.getdStaff().getContact());
 			passengerResSsrDto.setStaffName(ssr.getdStaff().getName());
 			passengerResSsrDto.setTerminalNo(ssr.getPssengerDetails().getFlightDetails().getDestinationTerminalNo());
+			passengerResSsrDto.setGateNo(ssr.getPssengerDetails().getFlightDetails().getDestinationGateNo());
 			passengerResSsrDto.setArcived(ssr.isArcived());
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(passengerResSsrDto);
