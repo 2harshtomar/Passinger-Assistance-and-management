@@ -109,7 +109,7 @@ public class StationServiceDL implements StaffWheelChairFactory {
 	
 	// assigns queue and set to null;
 	@Override
-	public void DeleteQueue() {
+	public void ClearResources() {
 		this.staffQueueDL = null;
 		this.staffSetDL = null;
 		System.out.println("Queue nullified");

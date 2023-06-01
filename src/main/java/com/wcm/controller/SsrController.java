@@ -20,10 +20,12 @@ import com.wcm.dto.PassengerResSsrDto;
 import com.wcm.dto.ResSsrDto;
 import com.wcm.dto.ResponseDto;
 import com.wcm.model.PassengerDetails;
+import com.wcm.model.PassengerNameRecord;
 import com.wcm.model.Ssr;
 import com.wcm.model.Staff;
 import com.wcm.model.Wheel_Chair;
 import com.wcm.repository.PassengerRepository;
+import com.wcm.repository.PnrRepository;
 import com.wcm.repository.SsrRepository;
 import com.wcm.service.AirlineService;
 import com.wcm.service.SsrService;
@@ -67,11 +69,18 @@ public class SsrController {
 	@Autowired
 	private SsrService ssrService;
 	
-	@PostMapping("/add/{passengerId}")
-	public ResponseEntity<Object> raiseSsr(@PathVariable("passengerId") Long pid){
+	@Autowired
+	private PnrRepository pnrRepository;
+	
+	
+	@PostMapping("/add/{passengerId}/{pnrid}")
+	public ResponseEntity<Object> raiseSsr(@PathVariable("passengerId") Long pid, @PathVariable("pnrid") Long pnrid){
 		Optional<PassengerDetails> optional = passengerRepo.findById(pid);
+		Optional<PassengerNameRecord> optionalp = pnrRepository.findById(pnrid);
+		PassengerNameRecord pnr = optionalp.get();
 		PassengerDetails passenger = optional.get();
 		Ssr ssr = new Ssr();
+		ssr.setPnr(pnr);
 		ssr.setPssengerDetails(passenger);
 		ssr.setOpenDateTime(LocalDateTime.now());
 		ssr.setStatus("ACTIVE");

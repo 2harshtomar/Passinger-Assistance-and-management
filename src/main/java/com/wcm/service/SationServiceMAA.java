@@ -104,7 +104,7 @@ public class SationServiceMAA implements StaffWheelChairFactory {
 	
 	// assigns queue and set to null;
 	@Override
-	public void DeleteQueue() {
+	public void ClearResources() {
 		this.staffQueueMAA = null;
 		this.staffSet = null;
 		this.wcmQueue = null;

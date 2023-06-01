@@ -48,12 +48,15 @@ public class FlightDetailsService {
 		for(Flight_details flight: flights) {
 			if(Duration.between(LocalDateTime.now(), flight.getFromDateTime()).toHours() <= 48) {
 				flight.setStatus("BOARDING");
+				flight.getCarrier().setStatus("IN-FLIGHT");
 			}
 			if(LocalDateTime.now().isAfter(flight.getFromDateTime())) {
 				flight.setStatus("DEPARTED");
 			}
 			if(LocalDateTime.now().isAfter(flight.getToDateTime())) {
 				flight.setStatus("LANDED");
+				flight.getCarrier().setStatus("AVAILABLE");
+				flight.getCarrier().setSeatsOccupied((long)0);
 			}
 			flightRepo.save(flight);
 		}

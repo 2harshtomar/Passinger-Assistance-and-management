@@ -2,8 +2,8 @@ package com.wcm.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +20,7 @@ import com.wcm.dto.ResponseDto;
 import com.wcm.exception.ResourseNotFoundException;
 import com.wcm.model.Ssr;
 import com.wcm.repository.SsrRepository;
+import com.wcm.repository.StaffRepository;
 import com.wcm.repository.WheelChairRepository;
 import com.wcm.service.AirlineService;
 import com.wcm.service.SationServiceMAA;
@@ -27,6 +28,8 @@ import com.wcm.service.StaffService;
 import com.wcm.service.StationRouterService;
 import com.wcm.service.StationServiceDL;
 import com.wcm.service.WheelChairService;
+import com.wcm.utility.StaffWheelChairFactory;
+import com.wcm.service.StationCommonService;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200"})
@@ -35,6 +38,7 @@ public class DemoController {
 
 //	@Autowired
 //	private WheelChairRepository wcRepo;
+	private StationCommonService stationCommonService;
 
 	@Autowired
 	private WheelChairService wcService;
@@ -65,6 +69,12 @@ public class DemoController {
 	
 	@Autowired
 	private SsrRepository ssrRepo;
+	
+	@Autowired
+	private StaffRepository staffRepo;
+	
+	@Autowired
+	private WheelChairRepository wcRepo;
 
 	// changing the status of wheel chair
 	@PutMapping("/update/wc/status/{id}")
@@ -130,12 +140,32 @@ public class DemoController {
 //		String msg = "Task assigned";
 //		return staffService.sendSMS(msg);
 //	}
-	
+	@GetMapping("/create/station")
+	public void createStation() {
+		StationCommonService stationDL = new StationCommonService("DL", "AVAILABLE", wcRepo, staffRepo, "15000", "0");
+		StationCommonService stationMAA = new StationCommonService("MAA", "AVAILABLE", wcRepo, staffRepo, "15000", "0");
+		StationCommonService.setStationOIbject(stationMAA);
+		StationCommonService.setStationOIbject(stationDL);
+		stationMAA.StartStationService();
+		stationDL.StartStationService();
+//		station.createQueue();
+	}
+	@GetMapping("/display")
+	public void displayQueue() {
+//		stationExp.updateStaffQueue();
+//		for(Map.Entry<String, StationCommonService> map: StationCommonService.stationDict.entrySet()) {
+//			map.getValue().displayQueue();
+//		}
+//		StationRouterService routerService = new StationRouterService();
+		StaffWheelChairFactory commonService =  stationRouterService.ForwardRequest("MAA-01");
+		commonService.displayQueue();
+	}
 	@GetMapping("/shutdown")
 	public void shutDown() {
-		stationServiceMaa.DeleteQueue();
-		stationServiceDL.DeleteQueue();
-		airlineService.DeleteQueue();
+//		stationServiceMaa.ClearResources();
+//		stationServiceDL.ClearResources();
+//		airlineService.DeleteQueue();
+		StationCommonService.clearAllResources();
 		shutDownManager.initiateShutdown(0);
 		System.out.println("Terminated");
 	}

@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class PassengerNameRecord {
@@ -20,6 +21,9 @@ public class PassengerNameRecord {
 	
 	@OneToMany
 	private List<PassengerDetails> passengers;
+	
+	@OneToOne
+	private Ssr ssr;
 	
 	public String getPnrNo() {
 		return pnrNo;
@@ -51,4 +55,11 @@ public class PassengerNameRecord {
 	public void setPassengers(List<PassengerDetails> passengers) {
 		this.passengers = passengers;
 	}
+	public Ssr getSsr() {
+		return ssr;
+	}
+	public void setSsr(Ssr ssr) {
+		this.ssr = ssr;
+	}
+	
 }

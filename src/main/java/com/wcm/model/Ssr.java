@@ -32,6 +32,9 @@ public class Ssr {
 	
 	@OneToOne
 	private Wheel_Chair dWheelChair;
+	
+	@OneToOne
+	private PassengerNameRecord pnr;
 
 	public Long getId() {
 		return id;
@@ -93,6 +96,11 @@ public class Ssr {
 	public void setArcived(boolean isArcived) {
 		this.isArcived = isArcived;
 	}
+	public PassengerNameRecord getPnr() {
+		return pnr;
+	}
+	public void setPnr(PassengerNameRecord pnr) {
+		this.pnr = pnr;
+	}
 	
-
 }

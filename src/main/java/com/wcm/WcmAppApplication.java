@@ -12,6 +12,5 @@ public class WcmAppApplication {
 		SpringApplication.run(WcmAppApplication.class, args);
 		System.out.println("Working");
 	}
-
 }
 

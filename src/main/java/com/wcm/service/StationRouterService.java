@@ -11,11 +11,11 @@ import com.wcm.utility.StaffWheelChairFactory;
 
 @Service
 public class StationRouterService {
-	@Autowired
-	private StationServiceDL stationServiceDL;
-	
-	@Autowired
-	private SationServiceMAA stationServiceMAA;
+//	@Autowired
+//	private StationServiceDL stationServiceDL;
+//	
+//	@Autowired
+//	private SationServiceMAA stationServiceMAA;
 	
 	@Autowired
 	private StationRepository stationRepo;
@@ -27,15 +27,16 @@ public class StationRouterService {
 		int sepPos = code.lastIndexOf("-");
 	    String stcode = code.substring(0,sepPos);
 		
-		switch (stcode) {
-		case "MAA":
-				return stationServiceMAA;
-		case "DL":
-			return stationServiceDL;
-
-		default:
-			return null;
-		}
+	    return StationCommonService.stationDict.get(stcode);
+//		switch (stcode) {
+//		case "MAA":
+//				return stationServiceMAA;
+//		case "DL":
+//			return stationServiceDL;
+//
+//		default:
+//			return null;
+//		}
 	}
 	
 	public String getEntity(long id) {

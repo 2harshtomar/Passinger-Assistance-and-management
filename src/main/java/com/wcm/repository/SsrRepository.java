@@ -11,4 +11,5 @@ import com.wcm.model.Ssr;
 public interface SsrRepository extends JpaRepository<Ssr, Long> {
 	@Query("select s from Ssr s where s.status <> 'ARCHIVED'")
 	List<Ssr> getSsrOnStaff(Long id);
+	
 }

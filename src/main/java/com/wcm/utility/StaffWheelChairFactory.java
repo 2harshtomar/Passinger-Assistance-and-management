@@ -7,7 +7,7 @@ public interface StaffWheelChairFactory {
 	public Object getStaff();
 	public void displayQueue();
 	public int getQueueStatus();
-	public void DeleteQueue();
+	public void ClearResources();
 	public Object getWheelChair();
 	public List<Object> getStaffWheelChairBasedOnCode(int code);
 }

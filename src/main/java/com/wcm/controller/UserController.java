@@ -24,7 +24,7 @@ import com.wcm.repository.StationRepository;
 import com.wcm.repository.UserRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/api/user")
 public class UserController {
 	@Autowired

@@ -21,10 +21,13 @@ import com.wcm.dto.ResponseDto;
 import com.wcm.model.Staff;
 import com.wcm.model.Station;
 import com.wcm.model.User;
+import com.wcm.repository.StaffRepository;
 import com.wcm.repository.StationRepository;
 import com.wcm.repository.UserRepository;
+import com.wcm.repository.WheelChairRepository;
 import com.wcm.service.SationServiceMAA;
 import com.wcm.service.StaffService;
+import com.wcm.service.StationCommonService;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200"})
@@ -50,6 +53,12 @@ public class StationController {
 	
 	@Autowired
 	private SationServiceMAA stationService;
+	
+	@Autowired 
+	private StaffRepository staffRepository;
+	
+	@Autowired
+	private WheelChairRepository wheelChairRepository;
 
 	@PostMapping("/add")
 	public ResponseEntity<Object> postStation(@RequestBody ReqStationDto stationDto){
@@ -71,10 +80,30 @@ public class StationController {
 		stationRepo.save(station);
 
 		responseDto.setMessage("Sation saved");
+		StationCommonService stationService = new StationCommonService(station.getStNumber(), "AVAILABLE", wheelChairRepository, staffRepository, "15000", "0");
+		StationCommonService.setStationOIbject(stationService);
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(responseDto);
 
 	}
+	@GetMapping("/start/service/{id}")
+	public ResponseEntity<Object> startService(@PathVariable("id") Long id){
+		Optional<Station> optional = stationRepo.findById(id);
+		if(optional.isEmpty()) {
+			responseDto.setMessage("Invalid Station ID");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
+		}
+		Station station = optional.get();
+		try {
+			StationCommonService.stationDict.get(station.getStNumber());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		responseDto.setMessage("Service Started");
+		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+		
+	}
+	
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Object> getStationById(@PathVariable("id") Long id, Principal principal) {
 
