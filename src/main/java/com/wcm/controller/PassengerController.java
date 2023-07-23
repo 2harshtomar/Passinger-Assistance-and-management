@@ -29,10 +29,6 @@ import com.wcm.repository.PassengerRepository;
 @CrossOrigin(origins = {"http://localhost:4200"})
 public class PassengerController {
 	
-	/* Author : Aaditya Mohan
-	 * emp id : 2000081375
-	 */
-	
 	@Autowired
 	private PassengerRepository passengerRepository;
 	
