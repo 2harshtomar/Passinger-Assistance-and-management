@@ -36,12 +36,6 @@ import com.wcm.service.WheelChairService;
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/api/ssr")
 public class SsrController {
-
-	
-	/* Author : Aaditya Mohan
-	 * emp id : 2000081375
-	 */
-	
 	@Autowired
 	private PassengerRepository passengerRepo;
 	
