@@ -45,10 +45,6 @@ public class WheelchairController {
 	
 	@Autowired
 	QrCodeService qrCodeService;
-	
-	/* Author : Aaditya Mohan
-	 * emp id : 2000081375
-	 */
 	//get
 	
 	@GetMapping("/get/wheelChair")
